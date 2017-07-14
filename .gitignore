@@ -3,5 +3,4 @@ node_modules
 dist
 dest
 npm-debug.log
-
-config/development.js
+.idea

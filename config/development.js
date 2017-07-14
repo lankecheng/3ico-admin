@@ -3,11 +3,11 @@ const production = require('./production');
 
 module.exports = merge(production, {
     //开发 devServer 端口
-    port: 9000,
+    port: 9001,
 
     NODE_ENV: 'development',
     API_ORIGIN: '',
-    
+
     //sourceMap开发环境强制开启
     // sourceMap: true,
     devtool: 'cheap-module-eval-source-map',

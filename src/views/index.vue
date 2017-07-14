@@ -20,7 +20,9 @@
         <div class="Frame top">
             <div class="Widget crumb">{{title}}</div>
             <div class="menus">
-                <el-button @click="" type="text">退出</el-button>
+                <el-button @click="$router.push({
+                    path: '/login'
+                })" type="text">退出</el-button>
             </div>
         </div>
     </div>
@@ -147,20 +149,20 @@ export default {
         right: 0;
         // z-index: 9;
         min-width: 1000px;
-        height: 64px;
+        height: 63px;
         padding: 0 40px;
         background-color: #fff;
-        box-shadow: 0 2px 8px rgba(128, 142, 150, 0.2);
+        box-shadow: 0 1px 3px rgba(128, 142, 150, 0.2);
         .Widget.crumb {
             float: left;
-            line-height: 64px;
+            line-height: 63px;
             font-size: 16px;
             font-weight: bold;
             color: #666;
         }
         .menus{
             float: right;
-            line-height: 64px;
+            line-height: 63px;
         }
     }
 </style>
