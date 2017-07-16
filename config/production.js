@@ -1,6 +1,6 @@
 module.exports = {
     NODE_ENV: 'production',
-    API_ORIGIN: '',
+    API_ORIGIN: 'http://119.23.160.90:8080',
 
     sourceMap: false,
     devtool: false, //or source-map

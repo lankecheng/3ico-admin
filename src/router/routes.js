@@ -15,9 +15,6 @@ const routes = [
                         resolve(require('../views/console'));
                     }, 'console');
                 },
-                meta: {
-                    index: 'console',
-                },
             },
             {
                 path: 'admin',
@@ -27,7 +24,7 @@ const routes = [
                     }, 'admin');
                 },
                 meta: {
-                    index: 'admin',
+                    index: '/admin',
                 },
             },
             {
@@ -38,7 +35,7 @@ const routes = [
                     }, 'user');
                 },
                 meta: {
-                    index: 'user',
+                    index: '/user',
                 },
             },
             {
@@ -49,8 +46,89 @@ const routes = [
                     }, 'asset');
                 },
                 meta: {
-                    index: 'asset',
+                    index: '/asset',
                 },
+            },
+            {
+                path: 'personal',
+                component: (resolve) => {
+                    require.ensure(['../views/personal'], () => {
+                        resolve(require('../views/personal'));
+                    }, 'personal');
+                },
+                meta: {
+                    index: '/personal',
+                },
+                children: [
+                    {
+                        path: 'info',
+                        component: (resolve) => {
+                            require.ensure(['../views/personal/info'], () => {
+                                resolve(require('../views/personal/info'));
+                            }, 'personal');
+                        },
+                        meta: {
+                            index: '/personal/info',
+                        },
+                    },
+                    {
+                        path: 'asset',
+                        component: (resolve) => {
+                            require.ensure(['../views/personal/asset'], () => {
+                                resolve(require('../views/personal/asset'));
+                            }, 'personal');
+                        },
+                        meta: {
+                            index: '/personal/asset',
+                        },
+                    },
+                    {
+                        path: 'password',
+                        component: (resolve) => {
+                            require.ensure(['../views/personal/password'], () => {
+                                resolve(require('../views/personal/password'));
+                            }, 'personal');
+                        },
+                        meta: {
+                            index: '/personal/password',
+                        },
+                    },
+                ]
+            },
+            {
+                path: 'project',
+                component: (resolve) => {
+                    require.ensure(['../views/project'], () => {
+                        resolve(require('../views/project'));
+                    }, 'project');
+                },
+                meta: {
+                    index: '/project',
+                },
+                children: [
+                    {
+                        path: 'list',
+                        component: (resolve) => {
+                            require.ensure(['../views/project/list'], () => {
+                                resolve(require('../views/project/list'));
+                            }, 'project');
+                        },
+                        meta: {
+                            index: '/project/list',
+                        },
+                    },
+                    {
+                        path: 'detail',
+                        component: (resolve) => {
+                            require.ensure(['../views/project/detail'], () => {
+                                resolve(require('../views/project/detail'));
+                            }, 'project');
+                        },
+                        meta: {
+                            index: '/project/detail',
+                        },
+                    },
+                ]
             },
         ],
     },

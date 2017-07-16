@@ -1,6 +1,6 @@
 <template>
 <div class="View container">
-    <div class="Frame menu">
+    <div v-if="init" class="Frame menu">
         <div class="logo">
         <router-link to="/">
         <img src="../assets/images/logo.png"/>
@@ -8,21 +8,29 @@
         </router-link>
         </div>
         <el-menu :default-active="activeIndex" class="bd" router>
-            <el-menu-item index="admin">项目管理员</el-menu-item>
-            <el-menu-item index="user">用户列表</el-menu-item>
-            <el-menu-item index="asset">资产流水</el-menu-item>
+            <el-submenu index="/project">
+                <template slot="title">项目管理</template>
+                <el-menu-item index="/project/list">项目列表</el-menu-item>
+            </el-submenu>
+            <!-- <el-submenu index="/personal">
+                <template slot="title">个人中心</template>
+                <el-menu-item index="/personal/info">我的信息</el-menu-item>
+                <el-menu-item index="/personal/asset">资产流水</el-menu-item>
+                <el-menu-item index="/personal/password">修改交易密码</el-menu-item>
+            </el-submenu> -->
+            <el-menu-item index="/admin">项目管理员</el-menu-item>
+            <el-menu-item index="/user">用户列表</el-menu-item>
+            <el-menu-item index="/asset">资产流水</el-menu-item>
         </el-menu>
     </div>
-    <div class="View main">
+    <div v-if="init" class="View main">
         <div class="View content">
             <router-view class="Frame content"/>
         </div>
         <div class="Frame top">
             <div class="Widget crumb">{{title}}</div>
             <div class="menus">
-                <el-button @click="$router.push({
-                    path: '/login'
-                })" type="text">退出</el-button>
+                <el-button @click="handleLogout" type="text">退出</el-button>
             </div>
         </div>
     </div>
@@ -40,7 +48,8 @@ import {bus} from '../utils/';
 export default {
     data() {
         return {
-            activeIndex: ''
+            activeIndex: '',
+            init: false,
         };
     },
     computed: {
@@ -48,7 +57,23 @@ export default {
             title: state => state.title,
         }),
     },
+    methods: {
+        ...mapActions({
+            getUserInfo: 'getUserInfo',
+            logout: 'logout',
+        }),
+        handleLogout() {
+            this.logout().then((res) => {
+                this.$router.push({
+                    path: '/login'
+                });
+            });
+        }
+    },
     created () {
+        this.getUserInfo().then((res) => {
+            this.init = true;
+        });
         // 初次进入页面关联路由 meta.index 处理展开激活的菜单
         const activeIndex = this.$route.meta.index || '';
         this.activeIndex = activeIndex;
