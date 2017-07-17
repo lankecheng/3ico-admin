@@ -1,0 +1,28 @@
+<template>
+    <div class="header">
+        <div class="View container">
+            <h1 class="logo"><img src="../../assets/img/logo.png"></h1>
+            <ul class="menus">
+                <li>
+                    <a class="active" href="/">首页</a>
+                </li>
+                <li>
+                    <a href="javascript:;">项目信息</a>
+                </li>
+                <li>
+                    <a href="javascript:;">push集市</a>
+                </li>
+                <li>
+                    <a href="javascript:;">关于我们</a>
+                </li>
+                <li>
+                    <a href="javascript:;">联系我们</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {}
+</script>

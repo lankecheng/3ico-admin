@@ -1,6 +1,52 @@
 <template>
-    <div>
-    <el-card class="login-wrap">
+    <div class="View common">
+
+    <top/>
+    <headerComp/>
+
+    <div class="login-wrap">
+        <div class="View container">
+            <div class="login-box">
+                <div class="hd">会员登录</div>
+                <div class="bd">
+                    <el-form ref="form" :model="form" :rules="rules" label-width="0">
+                        <el-form-item prop="nick">
+                            <el-input v-model="form.nick" placeholder="用户名"/>
+                        </el-form-item>
+                        <el-form-item prop="pwd">
+                            <el-input v-model="form.pwd" type="password" placeholder="密码"/>
+                        </el-form-item>
+                        <el-form-item prop="captcha">
+                            <el-input v-model="form.captcha" placeholder="验证码" style="width: 150px; vertical-align: top;"/>
+                            <img style="vertical-align: top;" :src="captcha" height="36" />
+                        </el-form-item>
+                        <!-- <el-form-item style="margin-bottom: 0;">
+                            <input type="checkbox" name=""/>记住我
+                            <a style="float: right" href="javascript:;">忘记密码</a>
+                        </el-form-item> -->
+                        <el-form-item>
+                            <el-button style="width: 100%; background-color: #005bac; border-color: #005bac;"
+                            @click="onSubmit" type="primary">登录</el-button>
+                            <div style="margin-top: 20px;">
+                                <el-button  style="width: 100%; background-color: #22a875; border-color: #22a875; color: #fff;"
+                                @click="$router.push({
+                                    path: 'register'
+                                })">免费注册</el-button>
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </div>
+                <div class="ft">
+                    还没有登录账号？<br/>
+                    马上注册关注本网站信息
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <bottom/>
+
+    <!-- <el-card class="login-wrap">
         <div class="hd" slot="header">
             <img src="../assets/images/logo.png" height="53" width="155">
         </div>
@@ -24,7 +70,7 @@
                 </el-form-item>
             </el-form>
         </div>
-    </el-card>
+    </el-card> -->
     </div>
 </template>
 
@@ -34,8 +80,17 @@ import {
     mapActions,
 } from 'vuex';
 
+import top from './common/top.vue';
+import headerComp from './common/header.vue';
+import bottom from './common/bottom.vue';
+
 export default{
     // title: '注册',
+    components: {
+        top,
+        headerComp,
+        bottom,
+    },
     data () {
         return {
             captcha: '',
@@ -58,6 +113,11 @@ export default{
             }
         };
     },
+    computed: {
+        ...mapState({
+            user: state => state.user,
+        }),
+    },
     methods: {
         ...mapActions({
             getCaptcha: 'getCaptcha',
@@ -69,7 +129,10 @@ export default{
             this.$refs.form.validate((valid) => {
                 if (valid) {
                     this.login(data).then((res) => {
-                        if (res.error_code === 0) {
+                        const role = this.user.role;
+                        if (role === 3) {
+                            location.href = location.origin;
+                        } else {
                             this.$message('登录成功');
                             this.$router.push({
                                 path: '/'
@@ -91,10 +154,32 @@ export default{
 
 <style lang="scss" scoped>
     .login-wrap{
-        width: 400px;
-        margin: 100px auto;
+        position: relative;
+        height: 564px;
+        background: url(../assets/img/bg-login.jpg) top no-repeat;
+    }
+    .login-box{
+        position: absolute;
+        top: 40px;
+        right: 0;
+        width: 368px;
+        height: 390px;
+        background-color: #fff;
         .hd{
-            text-align: center;
+            padding: 0 15px;
+            height: 40px;
+            font-size: 18px;
+            line-height: 40px;
+            color: #fff;
+            background: url(../assets/img/bg-login-hd.jpg) no-repeat center;
+        }
+        .bd{
+            padding: 15px;
+        }
+        .ft{
+            padding: 15px;
+            background-color: #4d4d4d;
+            color: #fff;
         }
     }
 </style>

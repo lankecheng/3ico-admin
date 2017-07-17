@@ -3,7 +3,7 @@
     <div v-if="init" class="Frame menu">
         <div class="logo">
         <router-link to="/">
-        <img src="../assets/images/logo.png"/>
+        <img src="../assets/img/logo.png"/>
         <em>3ICO后台管理系统</em>
         </router-link>
         </div>
@@ -73,6 +73,10 @@ export default {
     created () {
         this.getUserInfo().then((res) => {
             this.init = true;
+        }).catch((res) => {
+            this.$router.push({
+                path: '/login'
+            });
         });
         // 初次进入页面关联路由 meta.index 处理展开激活的菜单
         const activeIndex = this.$route.meta.index || '';

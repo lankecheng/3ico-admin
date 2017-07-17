@@ -55,7 +55,6 @@ export default {
         },
         logout({commit}, body = {}) {
             return api.logout(body).then((res) => {
-                console.log(res);
                 return res.data;
             });
         },

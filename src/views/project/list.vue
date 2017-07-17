@@ -218,6 +218,7 @@ export default{
                 if (valid) {
                     this.createProject(this.dialog.data).then((res) => {
                         this.$message('新增成功');
+                        this.initList();
                     });
                     this.dialog.show = false;
                 }

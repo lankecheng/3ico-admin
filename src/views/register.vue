@@ -1,6 +1,71 @@
 <template>
-    <div>
-    <el-card class="register-wrap">
+    <div class="View common">
+    <top/>
+    <headerComp/>
+    <div class="Module top">
+        <div class="View container">
+            <div class="title">用户注册</div>
+            <div class="crumb">首页/用户注册</div>
+        </div>
+    </div>
+    <div class="register-wrap">
+        <div class="View container">
+            <div class="register-box">
+                <div class="hd">欢迎您注册3ICO中心会员！</div>
+                <div class="bd">
+                    <div class="left">
+                    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+                    <el-form-item label="昵称" prop="nick">
+                        <el-input @blur="handleCheckNickname" v-model="form.nick" style="width: 210px;"/>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="pwd">
+                        <el-input v-model="form.pwd" type="password" style="width: 210px;"/>
+                    </el-form-item>
+                    <el-form-item label="确认密码" prop="checkPwd">
+                        <el-input v-model="form.checkPwd" type="password" style="width: 210px;"/>
+                    </el-form-item>
+                    <el-form-item label="手机" prop="mobile">
+                        <el-input @blur="handleCheckMobile" v-model="form.mobile" style="width: 210px;"/>
+                    </el-form-item>
+                    <el-form-item label="验证码" prop="pin_code">
+                        <el-input v-model="form.pin_code" style="width: 100px;"/>
+                        <el-button @click="handleGetVcode">获取验证码</el-button>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-checkbox v-model="form.agree">我已认真阅读并同意3ICO的使用协议</el-checkbox>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button
+                        :disabled="!form.agree" @click="onSubmit" type="primary">注册</el-button>
+                    </el-form-item>
+                    </el-form>
+                    </div>
+                    <div class="right">
+                        <div class="login">
+                            已有账号？
+                            <router-link to="/login">登录</router-link>
+                        </div>
+                        <div class="contact">
+                            <div class="phone">
+                                <i class="ico-phone"></i>
+                                400-0000-000
+                            </div>
+                            <div class="weibo">
+                                <div class="logo"></div>
+                                <div class="content">
+                                    <div class="name">3ICO科技文化发展有限公司</div>
+                                    <div class="follow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <bottom/>
+    <!-- <el-card class="register-wrap">
         <div class="hd" slot="header">
             <img src="../assets/images/logo.png" height="53" width="155">
         </div>
@@ -30,7 +95,7 @@
                 </el-form-item>
             </el-form>
         </div>
-    </el-card>
+    </el-card> -->
     <el-dialog
     title="图形验证码"
     :visible.sync="vcodeDialog.show"
@@ -52,8 +117,17 @@ import {
     mapActions,
 } from 'vuex';
 
+import top from './common/top.vue';
+import headerComp from './common/header.vue';
+import bottom from './common/bottom.vue';
+
 export default{
     // title: '注册',
+    components: {
+        top,
+        headerComp,
+        bottom,
+    },
     data () {
         const validNick = (rule, value, callback) => {
             if (!value.match(/^[\u4E00-\u9FA5a-z0-9]+$/)) {
@@ -142,6 +216,11 @@ export default{
             }
         };
     },
+    computed: {
+        ...mapState({
+            user: state => state.user,
+        }),
+    },
     methods: {
         ...mapActions({
             checkNickname: 'checkNickname',
@@ -160,7 +239,10 @@ export default{
                         mobile: data.mobile,
                         pin_code: data.pin_code,
                     }).then((res) => {
-                        if (res.error_code === 0) {
+                        const role = this.user.role;
+                        if (role === 3) {
+                            location.href = location.origin;
+                        } else {
                             this.$message('注册成功');
                             this.$router.push({
                                 path: '/'
@@ -203,11 +285,89 @@ export default{
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/mixins.scss';
+    .Module.top{
+        padding: 35px 0;
+        background-color: #373737;
+        .title{
+            font-size: 30px;
+            color: #fff;
+        }
+        .crumb{
+            margin-top: 10px;
+            font-size: 14px;
+            color: rgba(245, 245, 245, .6);
+        }
+    }
     .register-wrap{
-        width: 400px;
-        margin: 100px auto;
+        padding: 50px 0 70px;
+    }
+    .register-box{
+        border: 1px solid #d8d8d8;
         .hd{
-            text-align: center;
+            padding: 0 40px;
+            height: 50px;
+            color: #005ca2;
+            line-height: 50px;
+            background-color: #f2f2f2;
+            border-top: 2px solid #005ca2;
+            border-bottom: 1px solid #d8d8d8;
+        }
+        .bd{
+            padding: 65px;
+            @include clearfix;
+        }
+        .left{
+            float: left;
+            width: 50%;
+            border-right: 1px solid #d8d8d8;
+        }
+        .right{
+            float: right;
+            width: 40%;
+            padding-top: 50px;
+            .login{
+                font-size: 14px;
+            }
+            .contact{
+                margin-top: 30px;
+                padding: 12px;
+                border: 1px solid #d8d8d8;
+                background-color: #f7f7f7;
+                color: #22a875;
+                border-radius: 3px;
+                .phone{
+                    font-size: 24px;
+                    padding: 6px 0 12px;
+                }
+                .ico-phone{
+                    display: inline-block;
+                    width: 32px;
+                    height: 24px;
+                    background: url(../assets/img/ico-phone.png) no-repeat center;
+                    // vertical-align: middle;
+                }
+                .weibo{
+                    position: relative;
+                    min-height: 56px;
+                    padding: 15px 0 0 95px;
+                    border-top: 1px solid #d8d8d8;
+                    .logo{
+                        position: absolute;
+                        top: 15px;
+                        left: 0;
+                        width: 82px;
+                        height: 54px;
+                        border: 1px solid #005ca2;
+                        background-color: #fff;
+                        background: url(../assets/img/logo.png) no-repeat center;
+                        background-size: 100%;
+                    }
+                    .name{
+                        color: #005ca2;
+                    }
+                }
+            }
         }
     }
 </style>
