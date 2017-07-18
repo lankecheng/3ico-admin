@@ -1,13 +1,8 @@
 <template>
-    <div class="View common">
+    <div>
     <top/>
     <headerComp/>
-    <div class="Module top">
-        <div class="View container">
-            <div class="title">用户注册</div>
-            <div class="crumb">首页/用户注册</div>
-        </div>
-    </div>
+    <mTop title="用户注册" crumb="首页/用户注册"/>
     <div class="register-wrap">
         <div class="View container">
             <div class="register-box">
@@ -117,9 +112,10 @@ import {
     mapActions,
 } from 'vuex';
 
-import top from './common/top.vue';
-import headerComp from './common/header.vue';
-import bottom from './common/bottom.vue';
+import top from './layout/top.vue';
+import headerComp from './layout/header.vue';
+import bottom from './layout/bottom.vue';
+import mTop from './module/top.vue';
 
 export default{
     // title: '注册',
@@ -127,6 +123,7 @@ export default{
         top,
         headerComp,
         bottom,
+        mTop,
     },
     data () {
         const validNick = (rule, value, callback) => {
@@ -245,7 +242,7 @@ export default{
                         } else {
                             this.$message('注册成功');
                             this.$router.push({
-                                path: '/'
+                                path: '/admin'
                             });
                         }
                     });
@@ -253,7 +250,15 @@ export default{
             });
         },
         handleSendPinCode() {
-            this.vcodeDialog.show = false;
+            const captcha = this.vcodeDialog.value;
+            if (!captcha) return;
+            this.sendPinCode({
+              captcha_id: this.captcha_id,
+              captcha: captcha,
+              mobile: this.form.mobile,
+            }).then((res) => {
+              this.vcodeDialog.show = false;
+            });
         },
         handleGetVcode() {
             this.getCaptcha().then((res) => {
@@ -286,19 +291,7 @@ export default{
 
 <style lang="scss" scoped>
 @import '../assets/scss/mixins.scss';
-    .Module.top{
-        padding: 35px 0;
-        background-color: #373737;
-        .title{
-            font-size: 30px;
-            color: #fff;
-        }
-        .crumb{
-            margin-top: 10px;
-            font-size: 14px;
-            color: rgba(245, 245, 245, .6);
-        }
-    }
+
     .register-wrap{
         padding: 50px 0 70px;
     }

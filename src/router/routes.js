@@ -2,7 +2,38 @@
 const routes = [
     {
         path: '/',
-        component: require('../views/index.vue'),
+        component: (resolve) => {
+            require.ensure(['../views/index.vue'], () => {
+                resolve(require('../views/index.vue'));
+            }, 'app');
+        },
+        children: [
+            // {
+            //     path: '',
+            //     redirect: 'home',
+            // },
+            {
+                path: 'register',
+                component: (resolve) => {
+                    require.ensure(['../views/register.vue'], () => {
+                        resolve(require('../views/register.vue'));
+                    }, 'app');
+                }
+            },
+
+            {
+                path: 'login',
+                component: (resolve) => {
+                    require.ensure(['../views/login.vue'], () => {
+                        resolve(require('../views/login.vue'));
+                    }, 'app');
+                }
+            },
+        ]
+    },
+    {
+        path: '/admin',
+        component: require('../views/admin/index.vue'),
         children: [
             {
                 path: '',
@@ -11,16 +42,16 @@ const routes = [
             {
                 path: 'console',
                 component: (resolve) => {
-                    require.ensure(['../views/console'], () => {
-                        resolve(require('../views/console'));
+                    require.ensure(['../views/admin/console'], () => {
+                        resolve(require('../views/admin/console'));
                     }, 'console');
                 },
             },
             {
                 path: 'admin',
                 component: (resolve) => {
-                    require.ensure(['../views/admin'], () => {
-                        resolve(require('../views/admin'));
+                    require.ensure(['../views/admin/admin'], () => {
+                        resolve(require('../views/admin/admin'));
                     }, 'admin');
                 },
                 meta: {
@@ -30,8 +61,8 @@ const routes = [
             {
                 path: 'user',
                 component: (resolve) => {
-                    require.ensure(['../views/user'], () => {
-                        resolve(require('../views/user'));
+                    require.ensure(['../views/admin/user'], () => {
+                        resolve(require('../views/admin/user'));
                     }, 'user');
                 },
                 meta: {
@@ -41,8 +72,8 @@ const routes = [
             {
                 path: 'asset',
                 component: (resolve) => {
-                    require.ensure(['../views/asset'], () => {
-                        resolve(require('../views/asset'));
+                    require.ensure(['../views/admin/asset'], () => {
+                        resolve(require('../views/admin/asset'));
                     }, 'asset');
                 },
                 meta: {
@@ -52,8 +83,8 @@ const routes = [
             {
                 path: 'personal',
                 component: (resolve) => {
-                    require.ensure(['../views/personal'], () => {
-                        resolve(require('../views/personal'));
+                    require.ensure(['../views/admin/personal'], () => {
+                        resolve(require('../views/admin/personal'));
                     }, 'personal');
                 },
                 meta: {
@@ -63,8 +94,8 @@ const routes = [
                     {
                         path: 'info',
                         component: (resolve) => {
-                            require.ensure(['../views/personal/info'], () => {
-                                resolve(require('../views/personal/info'));
+                            require.ensure(['../views/admin/personal/info'], () => {
+                                resolve(require('../views/admin/personal/info'));
                             }, 'personal');
                         },
                         meta: {
@@ -74,8 +105,8 @@ const routes = [
                     {
                         path: 'asset',
                         component: (resolve) => {
-                            require.ensure(['../views/personal/asset'], () => {
-                                resolve(require('../views/personal/asset'));
+                            require.ensure(['../views/admin/personal/asset'], () => {
+                                resolve(require('../views/admin/personal/asset'));
                             }, 'personal');
                         },
                         meta: {
@@ -85,8 +116,8 @@ const routes = [
                     {
                         path: 'password',
                         component: (resolve) => {
-                            require.ensure(['../views/personal/password'], () => {
-                                resolve(require('../views/personal/password'));
+                            require.ensure(['../views/admin/personal/password'], () => {
+                                resolve(require('../views/admin/personal/password'));
                             }, 'personal');
                         },
                         meta: {
@@ -98,8 +129,8 @@ const routes = [
             {
                 path: 'project',
                 component: (resolve) => {
-                    require.ensure(['../views/project'], () => {
-                        resolve(require('../views/project'));
+                    require.ensure(['../views/admin/project'], () => {
+                        resolve(require('../views/admin/project'));
                     }, 'project');
                 },
                 meta: {
@@ -109,8 +140,8 @@ const routes = [
                     {
                         path: 'list',
                         component: (resolve) => {
-                            require.ensure(['../views/project/list'], () => {
-                                resolve(require('../views/project/list'));
+                            require.ensure(['../views/admin/project/list'], () => {
+                                resolve(require('../views/admin/project/list'));
                             }, 'project');
                         },
                         meta: {
@@ -120,8 +151,8 @@ const routes = [
                     {
                         path: 'detail',
                         component: (resolve) => {
-                            require.ensure(['../views/project/detail'], () => {
-                                resolve(require('../views/project/detail'));
+                            require.ensure(['../views/admin/project/detail'], () => {
+                                resolve(require('../views/admin/project/detail'));
                             }, 'project');
                         },
                         meta: {
@@ -134,29 +165,11 @@ const routes = [
     },
 
     {
-        path: '/register',
-        component: (resolve) => {
-            require.ensure(['../views/register.vue'], () => {
-                resolve(require('../views/register.vue'));
-            }, 'login');
-        }
-    },
-
-    {
-        path: '/login',
-        component: (resolve) => {
-            require.ensure(['../views/login.vue'], () => {
-                resolve(require('../views/login.vue'));
-            }, 'register');
-        }
-    },
-
-    {
         path: '*',
         component: (resolve) => {
             require.ensure(['../views/404.vue'], () => {
                 resolve(require('../views/404.vue'));
-            }, '404');
+            }, 'app');
         }
     },
 ];

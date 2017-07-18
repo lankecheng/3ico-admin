@@ -4,7 +4,7 @@
         <el-button type="primary" @click="handleAdd">新增</el-button>
     </div>
     <el-table
-        v-loading.body="loading"
+        v-loading="loading"
         :data="projects"
         stripe
         border>

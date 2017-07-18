@@ -47,10 +47,10 @@ export default {
         body.personal_max = body.personal_max - 0;
         body.target_amount = body.target_amount - 0;
 
-        const data = Object.assign({}, {
-            uid: Number(uid)
-        }, body);
-        return io.post('/api/project_admin/create', data);
+        // const data = Object.assign({}, {
+        //     uid: Number(uid)
+        // }, body);
+        return io.post('/api/project_admin/create', body);
     },
     publishProject(body) {
         return io.post('/api/project_admin/publish', body);
@@ -69,5 +69,17 @@ export default {
     },
     postAdmin(body) {
         return io.post('/api/bg/create_project_admin', body);
-    }
+    },
+    postPinCode(body) {
+        return io.post('/api/assist/send_pin_code', body);
+    },
+    postUserCertificate(body) {
+        return io.post('/api/user/certificate', body);
+    },
+    putUserPwd(body) {
+        return io.put('/api/user/pwd', body);
+    },
+    putUserTradePwd(body) {
+        return io.put('/api/user/trading_pwd', body);
+    },
 }

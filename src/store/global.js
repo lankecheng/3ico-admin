@@ -9,7 +9,21 @@ export default {
         title: '',
         user: null,
         projects: [],
-        admins: []
+        admins: [],
+        roles: {
+            1: {
+                text: '管理员',
+                val: 1,
+            },
+            2: {
+                text: '项目管理员',
+                val: 2,
+            },
+            3: {
+                text: '个人',
+                val: 3,
+            },
+        }
     },
     getters: {},
     mutations: {
@@ -35,6 +49,16 @@ export default {
         },
         getCaptcha({commit}) {
             return api.getCaptcha();
+        },
+        sendPinCode({commit}, body) {
+            return api.postPinCode(body).then((res) => {
+                return res.data;
+            });
+        },
+        userCertificate({commit}, body) {
+            return api.postUserCertificate(body).then((res) => {
+                return res.data;
+            });
         },
         getUserInfo ({commit}, query) {
             return api.getUserInfo().then((res) => {
@@ -105,6 +129,16 @@ export default {
             return api.postAdmin(body).then((res) => {
                 return res.data;
             });
-        }
+        },
+        changeUserPwd({commit}, body) {
+            return api.putUserPwd(body).then((res) => {
+                return res.data;
+            });
+        },
+        changeUserTradePwd({commit}, body) {
+            return api.putUserTradePwd(body).then((res) => {
+                return res.data;
+            });
+        },
     },
 };

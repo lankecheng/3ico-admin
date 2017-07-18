@@ -1,5 +1,5 @@
 <template>
-    <div class="View common">
+    <div>
 
     <top/>
     <headerComp/>
@@ -80,9 +80,9 @@ import {
     mapActions,
 } from 'vuex';
 
-import top from './common/top.vue';
-import headerComp from './common/header.vue';
-import bottom from './common/bottom.vue';
+import top from './layout/top.vue';
+import headerComp from './layout/header.vue';
+import bottom from './layout/bottom.vue';
 
 export default{
     // title: '注册',
@@ -135,7 +135,7 @@ export default{
                         } else {
                             this.$message('登录成功');
                             this.$router.push({
-                                path: '/'
+                                path: '/admin'
                             });
                         }
                     });

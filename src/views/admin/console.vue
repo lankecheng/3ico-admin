@@ -6,7 +6,7 @@
 
 <script type="text/babel">
 export default{
-    title: '首页',
+    title: '管理后台',
     data () {
         return {}
     },
