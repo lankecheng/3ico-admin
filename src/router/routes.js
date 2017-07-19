@@ -8,10 +8,10 @@ const routes = [
             }, 'app');
         },
         children: [
-            // {
-            //     path: '',
-            //     redirect: 'home',
-            // },
+            {
+                path: '',
+                redirect: 'admin',
+            },
             {
                 path: 'register',
                 component: (resolve) => {
