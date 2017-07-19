@@ -79,6 +79,7 @@ export default {
         },
         logout({commit}, body = {}) {
             return api.logout(body).then((res) => {
+                tokenHandle.remove();
                 return res.data;
             });
         },
