@@ -39,17 +39,16 @@
             </el-form-item>
         </el-form>
         <el-dialog
-        title="图形验证码"
-        :visible.sync="vcodeDialog.show"
-        :modal-append-to-body="false"
-        size="tiny">
-            <div>
-                <el-input style="width: 100px; vertical-align: top;"/>
-                <img src="http://oauth.meitu.com/oauth2/code?appid=1291231&t=1500024490" height="36" />
-            </div>
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="vcodeDialog.show = false">确 定</el-button>
-            </span>
+          title="图形验证码"
+          :visible.sync="vcodeDialog.show"
+          size="tiny">
+              <div>
+                  <el-input v-model="vcodeDialog.value" style="width: 100px; vertical-align: top;"/>
+                  <img :src="vcodeDialog.b64" height="36" />
+              </div>
+              <span slot="footer" class="dialog-footer">
+                  <el-button type="primary" @click="handleSendPinCode">确 定</el-button>
+              </span>
         </el-dialog>
     </div>
 </template>
@@ -96,8 +95,11 @@ export default{
         };
 
         return {
+            captcha_id: '',
             vcodeDialog: {
                 show: false,
+                b64: '',
+                value: '',
             },
             password: {
                 old_pwd: '',
@@ -167,10 +169,11 @@ export default{
         ...mapActions({
             changeUserPwd: 'changeUserPwd',
             changeUserTradePwd: 'changeUserTradePwd',
+            getCaptcha: 'getCaptcha',
+            sendPinCode: 'sendPinCode',
         }),
         onChangePwd() {
             const data = this.password;
-            console.log(data);
             this.$refs.pwd.validate((valid) => {
                 if (valid) {
                     this.changeUserPwd({
@@ -185,7 +188,6 @@ export default{
         },
         onChangeTradePwd() {
             const data = this.tradePassword;
-            console.log(data);
             this.$refs.tradePwd.validate((valid) => {
                 if (valid) {
                     this.changeUserTradePwd({
@@ -199,8 +201,23 @@ export default{
             });
         },
         handleGetVcode() {
-            this.vcodeDialog.show = true;
-        }
+            this.vcodeDialog.value = '';
+              this.getCaptcha().then((res) => {
+                  this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
+                  this.captcha_id = res.data.captcha_id;
+              });
+              this.vcodeDialog.show = true;
+        },
+        handleSendPinCode() {
+            const captcha = this.vcodeDialog.value;
+            if (!captcha) return;
+            this.sendPinCode({
+              captcha_id: this.captcha_id,
+              captcha: captcha,
+            }).then((res) => {
+              this.vcodeDialog.show = false;
+            });
+        },
     }
 };
 </script>

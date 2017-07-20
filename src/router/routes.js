@@ -44,7 +44,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/console'], () => {
                         resolve(require('../views/admin/console'));
-                    }, 'console');
+                    }, 'app');
                 },
             },
             {
@@ -52,10 +52,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/admin'], () => {
                         resolve(require('../views/admin/admin'));
-                    }, 'admin');
-                },
-                meta: {
-                    index: '/admin',
+                    }, 'app');
                 },
             },
             {
@@ -63,10 +60,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/user'], () => {
                         resolve(require('../views/admin/user'));
-                    }, 'user');
-                },
-                meta: {
-                    index: '/user',
+                    }, 'app');
                 },
             },
             {
@@ -74,10 +68,39 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/asset'], () => {
                         resolve(require('../views/admin/asset'));
-                    }, 'asset');
+                    }, 'app');
                 },
-                meta: {
-                    index: '/asset',
+            },
+            {
+                path: 'pay',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/pay'], () => {
+                        resolve(require('../views/admin/pay'));
+                    }, 'app');
+                },
+            },
+            {
+                path: 'invest',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/invest'], () => {
+                        resolve(require('../views/admin/invest'));
+                    }, 'app');
+                },
+            },
+            {
+                path: 'withdraw',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/withdraw'], () => {
+                        resolve(require('../views/admin/withdraw'));
+                    }, 'app');
+                },
+            },
+            {
+                path: 'withdraw/addr',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/withdraw-addr'], () => {
+                        resolve(require('../views/admin/withdraw-addr'));
+                    }, 'app');
                 },
             },
             {
@@ -85,10 +108,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/personal'], () => {
                         resolve(require('../views/admin/personal'));
-                    }, 'personal');
-                },
-                meta: {
-                    index: '/personal',
+                    }, 'app');
                 },
                 children: [
                     {
@@ -96,10 +116,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/personal/info'], () => {
                                 resolve(require('../views/admin/personal/info'));
-                            }, 'personal');
-                        },
-                        meta: {
-                            index: '/personal/info',
+                            }, 'app');
                         },
                     },
                     {
@@ -107,10 +124,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/personal/asset'], () => {
                                 resolve(require('../views/admin/personal/asset'));
-                            }, 'personal');
-                        },
-                        meta: {
-                            index: '/personal/asset',
+                            }, 'app');
                         },
                     },
                     {
@@ -118,10 +132,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/personal/password'], () => {
                                 resolve(require('../views/admin/personal/password'));
-                            }, 'personal');
-                        },
-                        meta: {
-                            index: '/personal/password',
+                            }, 'app');
                         },
                     },
                 ]
@@ -131,10 +142,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/project'], () => {
                         resolve(require('../views/admin/project'));
-                    }, 'project');
-                },
-                meta: {
-                    index: '/project',
+                    }, 'app');
                 },
                 children: [
                     {
@@ -142,10 +150,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/project/list'], () => {
                                 resolve(require('../views/admin/project/list'));
-                            }, 'project');
-                        },
-                        meta: {
-                            index: '/project/list',
+                            }, 'app');
                         },
                     },
                     {
@@ -153,10 +158,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/project/detail'], () => {
                                 resolve(require('../views/admin/project/detail'));
-                            }, 'project');
-                        },
-                        meta: {
-                            index: '/project/detail',
+                            }, 'app');
                         },
                     },
                 ]

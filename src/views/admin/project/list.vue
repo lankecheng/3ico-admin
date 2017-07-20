@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="hd">
-        <el-button type="primary" @click="handleAdd">新增</el-button>
+        <el-button type="success" @click="handleAdd">新增</el-button>
     </div>
     <el-table
         v-loading="loading"

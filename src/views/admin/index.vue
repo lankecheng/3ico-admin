@@ -30,14 +30,26 @@
                         <li>
                             <router-link to="/admin/admin">项目管理员</router-link>
                         </li>
-                        <li>
+                        <!-- <li>
                             <router-link to="/admin/user">用户列表</router-link>
                         </li>
                         <li>
                             <router-link to="/admin/personal/asset">资产流水</router-link>
-                        </li>
+                        </li> -->
                         <li>
                             <router-link to="/admin/personal/info">我的信息</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/admin/pay">数字代币充值</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/admin/invest">数字代币投资</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/admin/withdraw">数字代币提现</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/admin/withdraw/addr">提现地址管理</router-link>
                         </li>
                         <li>
                             <router-link to="/admin/personal/password">修改密码</router-link>
@@ -138,6 +150,7 @@ export default {
         }
     },
     created () {
+        this.init = true;
         this.getUserInfo().then((res) => {
             this.init = true;
         }).catch((res) => {

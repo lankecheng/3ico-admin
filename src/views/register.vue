@@ -224,6 +224,7 @@ export default{
             checkMobile: 'checkMobile',
             getCaptcha: 'getCaptcha',
             register: 'register',
+            sendPinCode: 'sendPinCode',
         }),
         onSubmit() {
             const data = this.form;

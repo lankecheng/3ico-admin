@@ -37,6 +37,7 @@ const handleError = function (err) {
 
     switch (errCode) {
     case 20001:
+    // case 20002:
         router.push({
             path: '/login'
         });

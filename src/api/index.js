@@ -16,7 +16,7 @@ export default {
         });
     },
     getUserInfo(query) {
-        return io.get('/api/user/info', {
+        return io.get('/api/user/profile/info', {
             params: {
                 uid: localStorage.getItem('uid')
             }
@@ -74,12 +74,41 @@ export default {
         return io.post('/api/assist/send_pin_code', body);
     },
     postUserCertificate(body) {
-        return io.post('/api/user/certificate', body);
+        return io.post('/api/user/profile/certificate', body);
     },
     putUserPwd(body) {
-        return io.put('/api/user/pwd', body);
+        return io.put('/api/user/profile/pwd', body);
     },
     putUserTradePwd(body) {
-        return io.put('/api/user/trading_pwd', body);
+        return io.put('/api/user/profile/trading_pwd', body);
+    },
+    getWithdrawAddrs() {
+        return io.get('/api/user/withdrawal/addr_list');
+    },
+    putWithdrawAddr(body) {
+        return io.put('/api/user/withdrawal/addr', body);
+    },
+    delWithdrawAddr(body) {
+        return io.delete('/api/user/withdrawal/addr', {
+            data: body
+        });
+    },
+    getTopUpAddr() {
+        return io.get('/api/user/top_up/addr');
+    },
+    postTopUp(body) {
+        return io.post('/api/user/top_up/mock', body);
+    },
+    getTopUpRecords() {
+        return io.get('/api/user/top_up/records');
+    },
+    getInvestRecords() {
+        return io.get('/api/user/invest/records');
+    },
+    getWithdrawRecords() {
+        return io.get('/api/user/withdrawal/records');
+    },
+    postWithdrawApply(body) {
+        return io.post('/api/user/withdrawal/apply', body);
     },
 }

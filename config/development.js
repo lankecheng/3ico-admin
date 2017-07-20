@@ -11,7 +11,7 @@ module.exports = merge(production, {
     //sourceMap开发环境强制开启
     // sourceMap: true,
     devtool: 'cheap-module-eval-source-map',
-    eslint: true,
+    eslint: false,
     //静态资源cdn路径
     staticPath: '',
     //图片资源cdn路径
