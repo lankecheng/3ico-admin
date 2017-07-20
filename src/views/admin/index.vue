@@ -130,16 +130,16 @@ export default {
         }),
         handleLogout() {
             this.logout().then((res) => {
-                this.$router.push({
-                    path: '/login'
-                });
+                location.href = location.origin;
+                // this.$router.push({
+                //     path: '/login'
+                // });
             });
         }
     },
     created () {
         this.getUserInfo().then((res) => {
             this.init = true;
-            console.log(this.user);
         }).catch((res) => {
             this.$router.push({
                 path: '/login'

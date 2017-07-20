@@ -52,9 +52,10 @@ import {
             }),
             handleLogout() {
                 this.logout().then((res) => {
-                    this.$router.push({
-                        path: '/login'
-                    });
+                    location.href = location.origin;
+                    // this.$router.push({
+                    //     path: '/login'
+                    // });
                 });
             }
         }
