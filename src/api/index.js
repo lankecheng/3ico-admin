@@ -77,16 +77,16 @@ export default {
         return io.post('/api/user/profile/certificate', body);
     },
     putUserPwd(body) {
-        return io.put('/api/user/profile/pwd', body);
+        return io.post('/api/user/profile/pwd', body);
     },
     putUserTradePwd(body) {
-        return io.put('/api/user/profile/trading_pwd', body);
+        return io.post('/api/user/profile/trading_pwd', body);
     },
     getWithdrawAddrs() {
         return io.get('/api/user/withdrawal/addr_list');
     },
     putWithdrawAddr(body) {
-        return io.put('/api/user/withdrawal/addr', body);
+        return io.post('/api/user/withdrawal/addr', body);
     },
     delWithdrawAddr(body) {
         return io.delete('/api/user/withdrawal/addr', {

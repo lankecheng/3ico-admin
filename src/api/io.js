@@ -55,19 +55,43 @@ const handleError = function (err) {
 
 export default {
     get(url, options = {}) {
-        return instance.get(url, options)
+        return instance.get(url, Object.assign(options, {
+            headers: {
+                Authorization: tokenHandle.get()
+            }
+        }))
         .then(handle).catch(handleError);
     },
     post(url, data = {}, config = {}) {
-        return instance.post(url, data, config)
+        let formData = new FormData();
+        for( let key in data){
+            formData.append(key, data[key]);
+        }
+        return instance.post(url, formData, Object.assign(config, {
+            headers: {
+                Authorization: tokenHandle.get()
+            }
+        }))
         .then(handle).catch(handleError);
     },
     put(url, data = {}, config = {}) {
-        return instance.put(url, data, config)
+        let formData = new FormData();
+        for( let key in data){
+            formData.append(key, data[key]);
+        }
+        return instance.put(url, formData, Object.assign(config, {
+            headers: {
+                Authorization: tokenHandle.get()
+            }
+        }))
         .then(handle).catch(handleError);
     },
     delete(url, options = {}) {
-        return instance.delete(url, options)
+        return instance.delete(url, Object.assign(options, {
+            headers: {
+                Authorization: tokenHandle.get()
+            }
+        }))
         .then(handle).catch(handleError);
     }
 };
