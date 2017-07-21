@@ -272,7 +272,7 @@ export default{
             this.$refs.form.validateField('nick', (err) => {
                 if (!err) {
                     this.checkNickname({
-                        nick: this.form.nickname
+                        nick: this.form.nick
                     });
                 }
             });

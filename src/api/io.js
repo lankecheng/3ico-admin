@@ -6,8 +6,16 @@ import router from '../router';
 const instance = axios.create({
     baseURL: API_ORIGIN,
     headers: {
-        Authorization: tokenHandle.get()
-    }
+        Authorization: tokenHandle.get(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    transformRequest: [function (data) {
+        let ret = '';
+        for (let it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        }
+        return ret;
+    }],
 });
 
 export const setHeader = (key, val) => {
@@ -63,11 +71,11 @@ export default {
         .then(handle).catch(handleError);
     },
     post(url, data = {}, config = {}) {
-        let formData = new FormData();
-        for( let key in data){
-            formData.append(key, data[key]);
-        }
-        return instance.post(url, formData, Object.assign(config, {
+        // let formData = new FormData();
+        // for( let key in data){
+        //     formData.append(key, data[key]);
+        // }
+        return instance.post(url, data, Object.assign(config, {
             headers: {
                 Authorization: tokenHandle.get()
             }
@@ -75,11 +83,11 @@ export default {
         .then(handle).catch(handleError);
     },
     put(url, data = {}, config = {}) {
-        let formData = new FormData();
-        for( let key in data){
-            formData.append(key, data[key]);
-        }
-        return instance.put(url, formData, Object.assign(config, {
+        // let formData = new FormData();
+        // for( let key in data){
+        //     formData.append(key, data[key]);
+        // }
+        return instance.put(url, data, Object.assign(config, {
             headers: {
                 Authorization: tokenHandle.get()
             }
