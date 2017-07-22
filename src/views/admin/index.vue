@@ -12,7 +12,7 @@
                         <img src="../../assets/img/default-avatar.png"/>
                         </div>
                         <div class="content">
-                            <div class="nick">{{user.nick}}的账户</div>
+                            <div class="nick">{{user.mobile}}的账户</div>
                             <div class="tag">已登录您的账号</div>
                         </div>
                     </div>
@@ -24,10 +24,10 @@
                 </div>
                 <div class="menus">
                     <ul>
-                        <li>
+                        <li v-if="user.role === 2">
                             <router-link to="/admin/project/list">项目列表</router-link>
                         </li>
-                        <li>
+                        <li v-if="user.role === 1">
                             <router-link to="/admin/admin">项目管理员</router-link>
                         </li>
                         <!-- <li>
@@ -36,22 +36,22 @@
                         <li>
                             <router-link to="/admin/personal/asset">资产流水</router-link>
                         </li> -->
-                        <li>
+                        <li v-if="user.role === 3">
                             <router-link to="/admin/personal/info">我的信息</router-link>
                         </li>
-                        <li>
+                        <li v-if="user.role === 3">
                             <router-link to="/admin/pay">数字代币充值</router-link>
                         </li>
-                        <li>
+                        <li v-if="user.role === 3">
                             <router-link to="/admin/invest">数字代币投资</router-link>
                         </li>
-                        <li>
+                        <li v-if="user.role === 3">
                             <router-link to="/admin/withdraw">数字代币提现</router-link>
                         </li>
-                        <li>
+                        <li v-if="user.role === 3">
                             <router-link to="/admin/withdraw/addr">提现地址管理</router-link>
                         </li>
-                        <li>
+                        <li v-if="user.role === 3">
                             <router-link to="/admin/personal/password">修改密码</router-link>
                         </li>
                     </ul>
@@ -248,7 +248,7 @@ export default {
         }
         >.content{
             float: left;
-            width: 875px;
+            width: 700px;
             margin-left: -1px;
             padding: 20px 30px;
             border-left: 1px solid #e6e6e6;

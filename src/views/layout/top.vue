@@ -12,7 +12,7 @@
             </span>
             <ul class="menus">
                 <li>
-                    <router-link v-if="!user" class="login" to="/login">
+                    <router-link v-if="user" class="login" to="/login">
                         <i class="ico-user"></i>
                         登录
                     </router-link>
@@ -22,7 +22,7 @@
                     </span>
                 </li>
                 <li>
-                    <router-link v-if="!user" class="register" to="/register">
+                    <router-link v-if="user" class="register" to="/register">
                         注册
                     </router-link>
                     <span @click="handleLogout" v-else class="register">

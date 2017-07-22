@@ -10,8 +10,8 @@
                 <div class="hd">会员登录</div>
                 <div class="bd">
                     <el-form ref="form" :model="form" :rules="rules" label-width="0">
-                        <el-form-item prop="nick">
-                            <el-input v-model="form.nick" placeholder="用户名"/>
+                        <el-form-item prop="mobile">
+                            <el-input v-model="form.mobile" placeholder="用户名"/>
                         </el-form-item>
                         <el-form-item prop="pwd">
                             <el-input v-model="form.pwd" type="password" placeholder="密码"/>
@@ -95,14 +95,14 @@ export default{
         return {
             captcha: '',
             form: {
-                nick: '',
+                mobile: '',
                 pwd: '',
                 captcha: '',
                 captcha_id: '',
             },
             rules: {
-                nick: [
-                    { required: true, message: '请输入昵称', trigger: 'blur' },
+                mobile: [
+                    { required: true, message: '请输入电话', trigger: 'blur' },
                 ],
                 pwd: [
                     { required: true, message: '请输入密码', trigger: 'blur' },

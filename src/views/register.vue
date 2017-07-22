@@ -10,8 +10,8 @@
                 <div class="bd">
                     <div class="left">
                     <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-                    <el-form-item label="昵称" prop="nick">
-                        <el-input @blur="handleCheckNickname" v-model="form.nick" style="width: 210px;"/>
+                    <el-form-item label="手机" prop="mobile">
+                        <el-input @blur="handleCheckMobile" v-model="form.mobile" style="width: 210px;"/>
                     </el-form-item>
                     <el-form-item label="密码" prop="pwd">
                         <el-input v-model="form.pwd" type="password" style="width: 210px;"/>
@@ -19,9 +19,9 @@
                     <el-form-item label="确认密码" prop="checkPwd">
                         <el-input v-model="form.checkPwd" type="password" style="width: 210px;"/>
                     </el-form-item>
-                    <el-form-item label="手机" prop="mobile">
+                    <!-- <el-form-item label="手机" prop="mobile">
                         <el-input @blur="handleCheckMobile" v-model="form.mobile" style="width: 210px;"/>
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item label="验证码" prop="pin_code">
                         <el-input v-model="form.pin_code" style="width: 100px;"/>
                         <el-button @click="handleGetVcode">获取验证码</el-button>
@@ -168,7 +168,7 @@ export default{
                 value: '',
             },
             form: {
-                nick: '',
+                // nick: '',
                 pwd: '',
                 checkPwd: '',
                 mobile: '',
@@ -176,14 +176,14 @@ export default{
                 agree: false,
             },
             rules: {
-                nick: [
-                    { required: true, message: '请输入昵称', trigger: 'blur' },
-                    { min: 4, max: 20, message: '长度在 4 到 20 个字符', trigger: 'blur' },
-                    {
-                        validator: validNick,
-                        trigger: 'blur'
-                    },
-                ],
+                // nick: [
+                //     { required: true, message: '请输入昵称', trigger: 'blur' },
+                //     { min: 4, max: 20, message: '长度在 4 到 20 个字符', trigger: 'blur' },
+                //     {
+                //         validator: validNick,
+                //         trigger: 'blur'
+                //     },
+                // ],
                 pwd: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
                     {
@@ -232,7 +232,7 @@ export default{
             this.$refs.form.validate((valid) => {
                 if (valid) {
                     this.register({
-                        nick: data.nick,
+                        // nick: data.nick,
                         pwd: data.pwd,
                         mobile: data.mobile,
                         pin_code: data.pin_code,

@@ -204,7 +204,7 @@ export default{
         },
         handleDetail(item) {
             this.$router.push({
-                path: '/project/detail',
+                path: '/admin/project/detail',
                 query: {
                     pid: item.row.id,
                 }
