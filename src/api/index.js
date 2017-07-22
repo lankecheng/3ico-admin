@@ -111,4 +111,9 @@ export default {
     postWithdrawApply(body) {
         return io.post('/api/user/withdrawal/apply', body);
     },
+    getFEProjects(query) {
+        return io.get('/api/project_list', {
+            params: query
+        });
+    },
 }

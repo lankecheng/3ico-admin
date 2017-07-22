@@ -4,19 +4,25 @@
             <h1 class="logo"><img src="../../assets/img/logo.png"></h1>
             <ul class="menus">
                 <li>
-                    <a class="active" href="/">首页</a>
+                    <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="javascript:;">项目信息</a>
+                    <router-link
+                    :class="{active: $route.path === '/projects'}"
+                    to="/projects">项目信息</router-link>
                 </li>
                 <!-- <li>
                     <a href="javascript:;">push集市</a>
                 </li> -->
                 <li>
-                    <a href="javascript:;">关于我们</a>
+                    <router-link
+                    :class="{active: $route.path === '/about'}"
+                    to="/about">关于我们</router-link>
                 </li>
                 <li>
-                    <a href="javascript:;">联系我们</a>
+                    <router-link
+                    :class="{active: $route.path === '/contact'}"
+                    to="/contact">联系我们</router-link>
                 </li>
             </ul>
         </div>

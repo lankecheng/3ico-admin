@@ -5,11 +5,21 @@
                 <div class="menus">
                     <div class="hd">3ico科技文化发展有限公司</div>
                     <ul>
-                        <li><i class="ico arrow"></i><a href="javascript:;">首页</a></li>
-                        <li><i class="ico arrow"></i><a href="javascript:;">项目信息</a></li>
+                        <li><i class="ico arrow"></i><a href="/">首页</a></li>
+                        <li>
+                        <i class="ico arrow"></i>
+                        <router-link to="/projects">
+                        项目信息</router-link>
+                        </li>
                         <!-- <li><i class="ico arrow"></i><a href="javascript:;">PUSH集市</a></li> -->
-                        <li><i class="ico arrow"></i><a href="javascript:;">关于我们</a></li>
-                        <li><i class="ico arrow"></i><a href="javascript:;">联系我们</a></li>
+                        <li>
+                            <i class="ico arrow"></i>
+                        <router-link to="/about">
+                        关于我们</router-link>
+                        </li>
+                        <li><i class="ico arrow"></i>
+                        <router-link to="/contact">
+                        联系我们</router-link></li>
                     </ul>
                 </div>
                 <div class="contact">

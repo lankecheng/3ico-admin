@@ -47,7 +47,8 @@ export default {
                 text: '众筹失败',
                 val: 2,
             },
-        }
+        },
+        feProjects: []
     },
     getters: {},
     mutations: {
@@ -59,6 +60,9 @@ export default {
         },
         SET_PROJECTS(state, projects) {
             state.projects = projects;
+        },
+        SET_FE_PROJECTS(state, projects) {
+            state.feProjects = projects;
         },
         SET_ADMINS(state, admins) {
             state.admins = admins;
@@ -223,6 +227,12 @@ export default {
         },
         postWithdrawApply({commit}, body) {
             return api.postWithdrawApply(body).then((res) => {
+                return res.data;
+            });
+        },
+        getFEProjects({commit}, query) {
+            return api.getFEProjects(query).then((res) => {
+                commit('SET_FE_PROJECTS', res.data.projects);
                 return res.data;
             });
         },

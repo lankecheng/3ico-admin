@@ -13,6 +13,30 @@ const routes = [
                 redirect: 'admin',
             },
             {
+                path: 'home',
+                component: (resolve) => {
+                    require.ensure(['../views/home.vue'], () => {
+                        resolve(require('../views/home.vue'));
+                    }, 'app');
+                }
+            },
+            {
+                path: 'about',
+                component: (resolve) => {
+                    require.ensure(['../views/about.vue'], () => {
+                        resolve(require('../views/about.vue'));
+                    }, 'app');
+                }
+            },
+            {
+                path: 'contact',
+                component: (resolve) => {
+                    require.ensure(['../views/contact.vue'], () => {
+                        resolve(require('../views/contact.vue'));
+                    }, 'app');
+                }
+            },
+            {
                 path: 'register',
                 component: (resolve) => {
                     require.ensure(['../views/register.vue'], () => {
@@ -26,6 +50,14 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/login.vue'], () => {
                         resolve(require('../views/login.vue'));
+                    }, 'app');
+                }
+            },
+            {
+                path: 'projects',
+                component: (resolve) => {
+                    require.ensure(['../views/projects.vue'], () => {
+                        resolve(require('../views/projects.vue'));
                     }, 'app');
                 }
             },
