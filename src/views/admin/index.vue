@@ -139,6 +139,7 @@ export default {
         ...mapActions({
             getUserInfo: 'getUserInfo',
             logout: 'logout',
+            postAssistVerify: 'postAssistVerify'
         }),
         handleLogout() {
             this.logout().then((res) => {
@@ -151,6 +152,7 @@ export default {
     },
     created () {
         this.init = true;
+        this.postAssistVerify();
         this.getUserInfo().then((res) => {
             this.init = true;
         }).catch((res) => {

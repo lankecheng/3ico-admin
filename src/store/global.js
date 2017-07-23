@@ -7,7 +7,7 @@ export default {
     namespaced: true,
     state: {
         title: '',
-        user: {},
+        user: null,
         projects: [],
         admins: [],
         roles: {
@@ -233,6 +233,11 @@ export default {
         getFEProjects({commit}, query) {
             return api.getFEProjects(query).then((res) => {
                 commit('SET_FE_PROJECTS', res.data.projects);
+                return res.data;
+            });
+        },
+        postAssistVerify({commit}) {
+            return api.postAssistVerify().then((res) => {
                 return res.data;
             });
         },

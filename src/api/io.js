@@ -46,6 +46,10 @@ const handleError = function (err) {
     switch (errCode) {
     case 20001:
     // case 20002:
+        Message({
+            message: errMsg || '未知错误',
+            type: 'error'
+        });
         router.push({
             path: '/login'
         });

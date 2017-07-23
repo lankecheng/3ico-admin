@@ -116,4 +116,7 @@ export default {
             params: query
         });
     },
+    postAssistVerify() {
+        return io.post('/api/assist/verify');
+    },
 }

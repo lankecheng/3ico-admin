@@ -11,7 +11,7 @@
                 <div class="bd">
                     <el-form ref="form" :model="form" :rules="rules" label-width="0">
                         <el-form-item prop="mobile">
-                            <el-input v-model="form.mobile" placeholder="用户名"/>
+                            <el-input v-model="form.mobile" placeholder="电话"/>
                         </el-form-item>
                         <el-form-item prop="pwd">
                             <el-input v-model="form.pwd" type="password" placeholder="密码"/>
