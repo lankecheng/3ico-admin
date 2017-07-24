@@ -21,16 +21,16 @@
         </el-form>
         <h3>修改交易密码</h3>
         <el-form ref="tradePwd" :model="tradePassword" :rules="tradePwdRules" label-width="100px">
-            <el-form-item label="原始密码" prop="password">
+            <el-form-item label="原始密码" prop="old_trading_pwd">
                 <el-input v-model="tradePassword.old_trading_pwd" type="password" style="width: 210px;"/>
             </el-form-item>
-            <el-form-item label="新密码" prop="password">
+            <el-form-item label="新密码" prop="new_trading_pwd">
                 <el-input v-model="tradePassword.new_trading_pwd" type="password" style="width: 210px;"/>
             </el-form-item>
-            <el-form-item label="确认新密码" prop="checkPassword">
+            <el-form-item label="确认新密码" prop="check_new_trading_pwd">
                 <el-input v-model="tradePassword.check_new_trading_pwd" type="password" style="width: 210px;"/>
             </el-form-item>
-            <el-form-item label="验证码" prop="vcode">
+            <el-form-item label="验证码" prop="pin_code">
                 <el-input v-model="tradePassword.pin_code" style="width: 100px;"/>
                 <el-button @click="handleGetVcode">获取验证码</el-button>
             </el-form-item>
@@ -58,10 +58,24 @@ import {
     mapActions,
 } from 'vuex';
 
+const DEFAULT_PWD = {
+    old_pwd: '',
+    new_pwd: '',
+    check_new_pwd: '',
+    pin_code: '',
+};
+const DEFAULT_TRADE_PWD = {
+    old_trading_pwd: '',
+    new_trading_pwd: '',
+    check_new_trading_pwd: '',
+    pin_code: '',
+};
+
 export default{
     title: '修改密码',
     data () {
         const validPass = (rule, value, callback) => {
+            console.log('test');
             if (!value.match(/^[A-Za-z0-9~!@#$%^&*_-]+$/)) {
                 callback(new Error('密码由英文字母、数字、符号组成!'));
             } else if (this.password.check_new_pwd !== '') {
@@ -78,6 +92,7 @@ export default{
             }
         };
         const validPass2 = (rule, value, callback) => {
+            console.log('test');
             if (!value.match(/^[A-Za-z0-9~!@#$%^&*_-]+$/)) {
                 callback(new Error('密码由英文字母、数字、符号组成!'));
             } else if (this.tradePassword.check_new_pwd !== '') {
@@ -101,18 +116,8 @@ export default{
                 b64: '',
                 value: '',
             },
-            password: {
-                old_pwd: '',
-                new_pwd: '',
-                check_new_pwd: '',
-                pin_code: '',
-            },
-            tradePassword: {
-                old_trading_pwd: '',
-                new_trading_pwd: '',
-                check_new_trading_pwd: '',
-                pin_code: '',
-            },
+            password: Object.assign({}, DEFAULT_PWD),
+            tradePassword: Object.assign({}, DEFAULT_TRADE_PWD),
             pwdRules: {
                 old_pwd: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
@@ -181,7 +186,8 @@ export default{
                         new_pwd: data.new_pwd,
                         pin_code: data.pin_code,
                     }).then((res) => {
-                        console.log(res);
+                        this.$message('修改成功');
+                        this.password = Object.assign({}, DEFAULT_PWD);
                     });
                 }
             });
@@ -195,7 +201,8 @@ export default{
                         new_trading_pwd: data.new_trading_pwd,
                         pin_code: data.pin_code,
                     }).then((res) => {
-                        console.log(res);
+                        this.$message('修改成功');
+                        this.tradePassword = Object.assign({}, DEFAULT_TRADE_PWD);
                     });
                 }
             });

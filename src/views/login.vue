@@ -18,7 +18,10 @@
                         </el-form-item>
                         <el-form-item prop="captcha">
                             <el-input v-model="form.captcha" placeholder="验证码" style="width: 150px; vertical-align: top;"/>
-                            <img style="vertical-align: top;" :src="captcha" height="36" />
+                            <img @click="refreshCaptcha"
+                            title="点击刷新"
+                            style="vertical-align: top; cursor: pointer;"
+                            :src="captcha" height="36" />
                         </el-form-item>
                         <!-- <el-form-item style="margin-bottom: 0;">
                             <input type="checkbox" name=""/>记住我
@@ -142,12 +145,15 @@ export default{
                 }
             });
         },
+        refreshCaptcha() {
+            this.getCaptcha().then((res) => {
+                this.captcha = 'data:image/png;base64,' + res.data.captcha;
+                this.form.captcha_id = res.data.captcha_id;
+            });
+        }
     },
     created() {
-        this.getCaptcha().then((res) => {
-            this.captcha = 'data:image/png;base64,' + res.data.captcha;
-            this.form.captcha_id = res.data.captcha_id;
-        });
+        this.refreshCaptcha();
     }
 };
 </script>

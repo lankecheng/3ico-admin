@@ -19,6 +19,7 @@
           </template>
           </el-table-column>
           <el-table-column
+          width="180"
           label="众筹周期">
           <template scope="scope">
             {{scope.row.begin_time}} - {{scope.row.end_time}}
@@ -138,7 +139,7 @@ const DEFAULT_DATA = {
 };
 
 export default{
-    title: '项目编辑',
+    title: '项目状态变更',
     data () {
         return {
             loading: true,

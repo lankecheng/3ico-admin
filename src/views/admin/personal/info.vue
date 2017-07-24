@@ -116,7 +116,10 @@ export default{
           this.$refs.form.validate((valid) => {
               if (valid) {
                   this.userCertificate(data).then((res) => {
-                      console.log(res);
+                      this.$message('认证成功');
+                      setTimeout(() => {
+                        location.reload();
+                      }, 300);
                   });
               }
           });

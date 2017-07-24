@@ -16,7 +16,7 @@
               </el-table-column>
               <el-table-column
               prop="amount"
-              label="金额">
+              label="数量">
               </el-table-column>
               <el-table-column
               prop="address"
@@ -43,7 +43,7 @@
         :visible.sync="dialog.show"
         :modal-append-to-body="false">
             <el-form ref="form" :model="dialog.data" :rules="dialog.rules" label-width="80px">
-                <el-form-item label="金额" prop="amount">
+                <el-form-item label="数量" prop="amount">
                     <el-input style="width: 100px" v-model.number="dialog.data.amount"/>
                 </el-form-item>
                 <el-form-item label="地址" prop="addr_id">
@@ -117,8 +117,10 @@ export default {
                 value: '',
             },
             status: {
-                0: '已提交',
-                1: '已确认'
+                0: '待处理',
+                1: '审核通过',
+                2: '转出成功',
+                3: '撤销',
             }
         }
     },

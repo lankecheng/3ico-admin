@@ -25,7 +25,7 @@
                 <div class="menus">
                     <ul>
                         <li v-if="NODE_ENV === 'development' || user.role === 2">
-                            <router-link to="/admin/projects/edit">项目编辑</router-link>
+                            <router-link to="/admin/projects/edit">项目录入</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 2">
                             <router-link to="/admin/projects/status">项目状态变更</router-link>
@@ -191,6 +191,7 @@ export default {
     @import '../../assets/scss/mixins.scss';
     .View.container {
         padding: 40px 0 60px;
+        width: 1200px;
     }
     .main{
         @include clearfix;
@@ -266,7 +267,7 @@ export default {
         }
         >.content{
             float: left;
-            width: 700px;
+            width: 900px;
             margin-left: -1px;
             padding: 20px 30px;
             border-left: 1px solid #e6e6e6;

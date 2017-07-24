@@ -14,7 +14,7 @@
               </el-table-column>
               <el-table-column
               prop="amount"
-              label="金额">
+              label="数量">
               </el-table-column>
               <el-table-column
               prop="create_time"
