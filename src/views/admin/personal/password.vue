@@ -148,7 +148,7 @@ export default{
                 ],
             },
             tradePwdRules: {
-                password: [
+                old_trading_pwd: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
                     {
                         validator: validPass2,
@@ -156,7 +156,15 @@ export default{
                     },
                     { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
                 ],
-                checkPassword: [
+                new_trading_pwd: [
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    {
+                        validator: validPass2,
+                        trigger: 'blur'
+                    },
+                    { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
+                ],
+                check_new_trading_pwd: [
                     { required: true, message: '请再次输入密码', trigger: 'blur' },
                     {
                         validator: validCheckPass2,
