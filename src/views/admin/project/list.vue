@@ -22,7 +22,9 @@
           width="180"
           label="众筹周期">
           <template scope="scope">
-            {{scope.row.begin_time}} - {{scope.row.end_time}}
+            {{scope.row.begin_time}}<br/>
+            - <br/>
+            {{scope.row.end_time}}
           </template>
           </el-table-column>
           <el-table-column
@@ -41,17 +43,13 @@
           </el-table-column>
           <el-table-column
           prop="complete_amount"
-          label="完成金额">
+          label="获取数">
           </el-table-column>
           <el-table-column
           label="状态">
           <template scope="scope">
             {{status[scope.row.status]}}
           </template>
-          </el-table-column>
-          <el-table-column
-          prop="complete_amount"
-          label="已完成金额">
           </el-table-column>
         <el-table-column
           label="众筹成功">
