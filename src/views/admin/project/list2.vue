@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="hd">
+    <!-- <div class="hd">
         <el-button type="success" @click="handleAdd">新增</el-button>
-    </div>
+    </div> -->
     <el-table
         v-loading="loading"
         :data="projects"
@@ -62,9 +62,11 @@
         label="操作">
           <template scope="scope">
             <el-button-group>
-            <el-button v-if="scope.row.status === 0" @click="handleEdit(scope)" size="small">编辑</el-button>
-            <el-button @click="handleDetail(scope)" size="small">简介</el-button>
-            <!-- <el-button v-if="scope.row.status === 1" @click="handleDel(scope)" size="small">下线</el-button> -->
+            <el-button v-if="scope.row.status == 0" @click="handlePublish(scope)" size="small">发布</el-button>
+            <el-button v-if="scope.row.status == 1" @click="handleStop(scope)" size="small">终止</el-button>
+            <el-button v-if="scope.row.status == 2" @click="handleSuccess(scope)" size="small">众筹成功</el-button>
+            <el-button v-if="scope.row.status == 2" @click="handleFail(scope)" size="small">众筹失败</el-button>
+            <el-button v-if="scope.row.status == 2" @click="handleDelay(scope)" size="small">延期</el-button>
             </el-button-group>
           </template>
         </el-table-column>
@@ -143,7 +145,8 @@ export default{
             status: {
                 0: '未发布',
                 1: '已发布',
-                2: '已下线',
+                2: '已结束',
+                3: '终止',
             },
             dialog: {
                 show: false,
@@ -185,27 +188,14 @@ export default{
             createProject: 'createProject',
             modifyProject: 'modifyProject',
             publishProject: 'publishProject',
+            stopProject: 'stopProject',
+            successProject: 'successProject',
+            failProject: 'failProject',
+            delayProject: 'delayProject',
         }),
         handleDialog() {
             if (this.$refs.form) this.$refs.form.resetFields();
             this.dialog.show = true;
-        },
-        handleAdd() {
-            this.dialog.isEdit = false;
-            this.dialog.data = Object.assign({}, DEFAULT_DATA);
-            this.handleDialog();
-        },
-        handleEdit(item) {
-            const row = item.row;
-            this.dialog.isEdit = true;
-            this.dialog.data = Object.assign({}, row);
-            this.handleDialog();
-        },
-        handleDel(item) {
-            this.$confirm('确认下线?', {
-                type: 'warning'
-            }).then(() => {
-            });
         },
         handlePublish(item) {
             this.publishProject({pid: item.row.id}).then((res) => {
@@ -213,12 +203,28 @@ export default{
                 this.initList();
             });
         },
-        handleDetail(item) {
-            this.$router.push({
-                path: '/admin/projects/detail',
-                query: {
-                    pid: item.row.id,
-                }
+        handleStop(item) {
+            this.stopProject({pid: item.row.id}).then((res) => {
+                this.$message('终止成功');
+                this.initList();
+            });
+        },
+        handleSuccess(item) {
+            this.successProject({pid: item.row.id}).then((res) => {
+                this.$message('操作成功');
+                this.initList();
+            });
+        },
+        handleFail(item) {
+            this.failProject({pid: item.row.id}).then((res) => {
+                this.$message('操作成功');
+                this.initList();
+            });
+        },
+        handleDelay(item) {
+            this.delayProject({pid: item.row.id}).then((res) => {
+                this.$message('操作成功');
+                this.initList();
             });
         },
         handleTime(val, name) {

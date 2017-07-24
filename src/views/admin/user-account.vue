@@ -9,13 +9,18 @@
                 <el-input v-model="query.mobile"/>
             </el-form-item>
             <el-form-item>
+                <el-select v-model="query.currency">
+                      <el-option label="ETC" :value="0"></el-option>
+                  </el-select>
+            </el-form-item>
+            <el-form-item>
                 <el-button @click="handleSearch" type="primary">搜索</el-button>
             </el-form-item>
         </el-form>
     </div>
     <el-table
     v-loading="loading"
-        :data="users"
+        :data="userAccounts"
         stripe
         border>
         <el-table-column
@@ -27,24 +32,22 @@
           label="手机">
         </el-table-column>
           <el-table-column
-          prop="name"
-          label="是否认证">
+          label="币种">
           <template scope="scope">
-            {{scope.row.auth ? '是' : '否'}}
+            {{currencies[scope.row.currency].text}}
           </template>
         </el-table-column>
           <el-table-column
-          prop="fullname"
-          label="姓名">
+          prop="address"
+          label="充值地址">
         </el-table-column>
         <el-table-column
-          prop="id_number"
-          label="身份证">
+          prop="balance"
+          label="余额">
         </el-table-column>
         <el-table-column
-          width="180"
-          prop="create_time"
-          label="注册时间">
+          prop="freeze"
+          label="冻结">
         </el-table-column>
     </el-table>
     <el-pagination
@@ -71,10 +74,11 @@ const DEFAULT_QUERY = {
     count: 20,
     mobile: '',
     code: '',
+    currency: 0,
 };
 
 export default{
-    title: '用户列表',
+    title: '用户钱包',
     data () {
         return {
           total: 0,
@@ -84,12 +88,13 @@ export default{
     },
     computed: {
       ...mapState({
-        users: 'users',
+        userAccounts: 'userAccounts',
+        currencies: 'currencies',
       }),
     },
     methods: {
       ...mapActions({
-        getUsers: 'getUsers'
+        getUserAccounts: 'getUserAccounts'
       }),
         handleSizeChange(val) {
           this.query.page = 1;
@@ -102,7 +107,7 @@ export default{
         },
         initList() {
           this.loading = true;
-          this.getUsers(this.query).then((res) => {
+          this.getUserAccounts(this.query).then((res) => {
             this.total = res.total;
             // this.query.count = res.count;
             this.loading = false;

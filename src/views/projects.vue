@@ -88,7 +88,6 @@ export default{
             getFEProjects: 'getFEProjects',
         }),
         tabChange() {
-            console.log('tes');
             const status = this.$route.query.status;
             this.getFEProjects({
                 status: status

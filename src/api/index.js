@@ -42,18 +42,31 @@ export default {
         });
     },
     postProject(body) {
-        const uid = localStorage.getItem('uid') || 0;
-
         body.personal_max = body.personal_max - 0;
         body.target_amount = body.target_amount - 0;
 
-        // const data = Object.assign({}, {
-        //     uid: Number(uid)
-        // }, body);
         return io.post('/api/project_admin/create', body);
+    },
+    modifyProject(body) {
+        body.personal_max = body.personal_max - 0;
+        body.target_amount = body.target_amount - 0;
+
+        return io.post('/api/project_admin/modify_basic_info', body);
     },
     publishProject(body) {
         return io.post('/api/project_admin/publish', body);
+    },
+    stopProject(body) {
+        return io.post('/api/project_admin/terminate', body);
+    },
+    successProject(body) {
+        return io.post('/api/project_admin/success', body);
+    },
+    failProject(body) {
+        return io.post('/api/project_admin/fail', body);
+    },
+    delayProject(body) {
+        return io.post('/api/project_admin/delay', body);
     },
 
     getProjectIntro(query) {
@@ -99,6 +112,9 @@ export default {
     postTopUp(body) {
         return io.post('/api/user/top_up/mock', body);
     },
+    postAdminTopUp(body) {
+        return io.post('/api/bg/top_up', body);
+    },
     getTopUpRecords() {
         return io.get('/api/user/top_up/records');
     },
@@ -118,5 +134,34 @@ export default {
     },
     postAssistVerify() {
         return io.post('/api/assist/verify');
+    },
+    getUsers(query) {
+        return io.get('/api/bg/users', {
+            params: query
+        });
+    },
+    getUserAccounts(query) {
+        return io.get('/api/bg/user_accounts', {
+            params: query
+        });
+    },
+    getLRecords(query) {
+        return io.get('/api/bg/login_logout_records', {
+            params: query
+        });
+    },
+    getAdminWithdrawRecords(query) {
+        return io.get('/api/bg/withdrawal_records', {
+            params: query
+        });
+    },
+    postAdminWithdrawCancel(body) {
+        return io.post('/api/bg/withdrawal_cancel', body);
+    },
+    postAdminWithdrawApprove(body) {
+        return io.post('/api/bg/withdrawal_approve', body);
+    },
+    postAdminWithdrawSuccess(body) {
+        return io.post('/api/bg/withdrawal_success', body);
     },
 }

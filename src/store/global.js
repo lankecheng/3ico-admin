@@ -34,6 +34,7 @@ export default {
         topUpRecords: [],
         investRecords: [],
         withdrawRecords: [],
+        adminWithdrawRecords: [],
         investStatus: {
             0: {
                 text: '进行中',
@@ -48,7 +49,10 @@ export default {
                 val: 2,
             },
         },
-        feProjects: []
+        feProjects: [],
+        users: [],
+        userAccounts: [],
+        lRecords: [],
     },
     getters: {},
     mutations: {
@@ -78,6 +82,18 @@ export default {
         },
         SET_WITHDRAW_RECORDS(state, records) {
             state.withdrawRecords = records;
+        },
+        SET_USERS(state, users) {
+            state.users = users;
+        },
+        SET_USER_ACCOUNTS(state, accounts) {
+            state.userAccounts = accounts;
+        },
+        SET_L_RECORDS(state, records) {
+            state.lRecords = records;
+        },
+        SET_ADMIN_WITHDRAW_RECORDS(state, records) {
+            state.adminWithdrawRecords = records;
         },
     },
     actions: {
@@ -145,8 +161,33 @@ export default {
                 return res.data;
             });
         },
+        modifyProject({commit}, body = {}) {
+            return api.modifyProject(body).then((res) => {
+                return res.data;
+            });
+        },
         publishProject({commit}, body = {}) {
             return api.publishProject(body).then((res) => {
+                return res.data;
+            });
+        },
+        stopProject({commit}, body = {}) {
+            return api.stopProject(body).then((res) => {
+                return res.data;
+            });
+        },
+        successProject({commit}, body = {}) {
+            return api.successProject(body).then((res) => {
+                return res.data;
+            });
+        },
+        failProject({commit}, body = {}) {
+            return api.failProject(body).then((res) => {
+                return res.data;
+            });
+        },
+        delayProject({commit}, body = {}) {
+            return api.delayProject(body).then((res) => {
                 return res.data;
             });
         },
@@ -207,6 +248,11 @@ export default {
                 return res.data;
             });
         },
+        postAdminTopUp({commit}, body) {
+            return api.postAdminTopUp(body).then((res) => {
+                return res.data;
+            });
+        },
         getTopUpRecords({commit}) {
             return api.getTopUpRecords().then((res) => {
                 commit('SET_TOP_UP_RECORDS', res.data.top_up_records);
@@ -238,6 +284,45 @@ export default {
         },
         postAssistVerify({commit}) {
             return api.postAssistVerify().then((res) => {
+                return res.data;
+            });
+        },
+        getUsers({commit}, query) {
+            return api.getUsers(query).then((res) => {
+                commit('SET_USERS', res.data.users);
+                return res.data;
+            });
+        },
+        getUserAccounts({commit}, query) {
+            return api.getUserAccounts(query).then((res) => {
+                commit('SET_USER_ACCOUNTS', res.data.user_accounts);
+                return res.data;
+            });
+        },
+        getLRecords({commit}, query) {
+            return api.getLRecords(query).then((res) => {
+                commit('SET_L_RECORDS', res.data.login_logout_records);
+                return res.data;
+            });
+        },
+        getAdminWithdrawRecords({commit}, query) {
+            return api.getAdminWithdrawRecords(query).then((res) => {
+                commit('SET_ADMIN_WITHDRAW_RECORDS', res.data.withdrawal_records);
+                return res.data;
+            });
+        },
+        cancelAdminWithdraw({commit}, body) {
+            return api.postAdminWithdrawCancel(body).then((res) => {
+                return res.data;
+            });
+        },
+        approveAdminWithdraw({commit}, body) {
+            return api.postAdminWithdrawApprove(body).then((res) => {
+                return res.data;
+            });
+        },
+        successAdminWithdraw({commit}, body) {
+            return api.postAdminWithdrawSuccess(body).then((res) => {
                 return res.data;
             });
         },

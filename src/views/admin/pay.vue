@@ -2,7 +2,6 @@
     <div>
         <div class="hd">
             我的充值地址：{{topUpAddr.addr}}
-            <el-button size="small" @click="handleAdd">充值</el-button>
         </div>
         <el-table
             v-loading="loading"
@@ -120,10 +119,10 @@ export default {
             getCaptcha: 'getCaptcha',
             sendPinCode: 'sendPinCode',
         }),
-        handleAdd() {
-            this.$refs.form && this.$refs.form.resetFields();
-          this.dialog.show = true;
-        },
+        // handleAdd() {
+        //     this.$refs.form && this.$refs.form.resetFields();
+        //   this.dialog.show = true;
+        // },
         initList() {
             this.loading = true;
             Promise.all([this.getTopUpAddr(), this.getTopUpRecords()]).then(([addr, records]) => {

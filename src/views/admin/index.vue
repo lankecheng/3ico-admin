@@ -5,7 +5,7 @@
     <mTop :title="title"/>
     <div class="View container">
         <div class="main">
-            <div class="sidebar">
+            <div v-if="user" class="sidebar">
                 <div class="top">
                     <div class="info">
                         <div class="avatar">
@@ -24,34 +24,49 @@
                 </div>
                 <div class="menus">
                     <ul>
-                        <li v-if="user.role === 2">
-                            <router-link to="/admin/project/list">项目列表</router-link>
+                        <li v-if="NODE_ENV === 'development' || user.role === 2">
+                            <router-link to="/admin/projects/edit">项目编辑</router-link>
                         </li>
-                        <li v-if="user.role === 1">
+                        <li v-if="NODE_ENV === 'development' || user.role === 2">
+                            <router-link to="/admin/projects/status">项目状态变更</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/admin">项目管理员</router-link>
                         </li>
-                        <!-- <li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
+                            <router-link to="/admin/admin-pay">万能充值</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/user">用户列表</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
+                            <router-link to="/admin/user-account">用户钱包</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
+                            <router-link to="/admin/withdraw-record">提现</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
+                            <router-link to="/admin/login-record">登录日志</router-link>
                         </li>
                         <li>
                             <router-link to="/admin/personal/asset">资产流水</router-link>
-                        </li> -->
-                        <li v-if="user.role === 3">
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/personal/info">我的信息</router-link>
                         </li>
-                        <li v-if="user.role === 3">
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/pay">数字代币充值</router-link>
                         </li>
-                        <li v-if="user.role === 3">
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/invest">数字代币投资</router-link>
                         </li>
-                        <li v-if="user.role === 3">
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/withdraw">数字代币提现</router-link>
                         </li>
-                        <li v-if="user.role === 3">
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/withdraw/addr">提现地址管理</router-link>
                         </li>
-                        <li v-if="user.role === 3">
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/personal/password">修改密码</router-link>
                         </li>
                     </ul>
@@ -120,6 +135,7 @@ export default {
         return {
             activeIndex: '',
             init: false,
+            'NODE_ENV': NODE_ENV,
         };
     },
     components: {

@@ -88,10 +88,42 @@ const routes = [
                 },
             },
             {
+                path: 'admin-pay',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/admin-pay'], () => {
+                        resolve(require('../views/admin/admin-pay'));
+                    }, 'app');
+                },
+            },
+            {
                 path: 'user',
                 component: (resolve) => {
                     require.ensure(['../views/admin/user'], () => {
                         resolve(require('../views/admin/user'));
+                    }, 'app');
+                },
+            },
+            {
+                path: 'user-account',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/user-account'], () => {
+                        resolve(require('../views/admin/user-account'));
+                    }, 'app');
+                },
+            },
+            {
+                path: 'withdraw-record',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/withdraw-record'], () => {
+                        resolve(require('../views/admin/withdraw-record'));
+                    }, 'app');
+                },
+            },
+            {
+                path: 'login-record',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/login-record'], () => {
+                        resolve(require('../views/admin/login-record'));
                     }, 'app');
                 },
             },
@@ -170,7 +202,7 @@ const routes = [
                 ]
             },
             {
-                path: 'project',
+                path: 'projects',
                 component: (resolve) => {
                     require.ensure(['../views/admin/project'], () => {
                         resolve(require('../views/admin/project'));
@@ -178,10 +210,18 @@ const routes = [
                 },
                 children: [
                     {
-                        path: 'list',
+                        path: 'edit',
                         component: (resolve) => {
                             require.ensure(['../views/admin/project/list'], () => {
                                 resolve(require('../views/admin/project/list'));
+                            }, 'app');
+                        },
+                    },
+                    {
+                        path: 'status',
+                        component: (resolve) => {
+                            require.ensure(['../views/admin/project/list2'], () => {
+                                resolve(require('../views/admin/project/list2'));
                             }, 'app');
                         },
                     },

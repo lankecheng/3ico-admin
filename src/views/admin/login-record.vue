@@ -15,11 +15,11 @@
     </div>
     <el-table
     v-loading="loading"
-        :data="users"
+        :data="lRecords"
         stripe
         border>
         <el-table-column
-          prop="code"
+          prop="ucode"
           label="用户ID">
         </el-table-column>
         <el-table-column
@@ -27,24 +27,23 @@
           label="手机">
         </el-table-column>
           <el-table-column
-          prop="name"
-          label="是否认证">
+          prop="type"
+          label="类型">
           <template scope="scope">
-            {{scope.row.auth ? '是' : '否'}}
+            {{type[scope.row.type]}}
           </template>
         </el-table-column>
-          <el-table-column
-          prop="fullname"
-          label="姓名">
+        <el-table-column
+          prop="ip"
+          label="IP">
         </el-table-column>
         <el-table-column
-          prop="id_number"
-          label="身份证">
+          prop="address"
+          label="地址">
         </el-table-column>
         <el-table-column
-          width="180"
-          prop="create_time"
-          label="注册时间">
+          prop="time"
+          label="时间">
         </el-table-column>
     </el-table>
     <el-pagination
@@ -70,26 +69,30 @@ const DEFAULT_QUERY = {
     page: 1,
     count: 20,
     mobile: '',
-    code: '',
+    ucode: '',
 };
 
 export default{
-    title: '用户列表',
+    title: '登录日志',
     data () {
         return {
           total: 0,
           loading: false,
-            query: Object.assign({}, DEFAULT_QUERY, this.$route.query),
+          type: {
+            0: '登录',
+            1: '登出'
+          },
+          query: Object.assign({}, DEFAULT_QUERY, this.$route.query),
         };
     },
     computed: {
       ...mapState({
-        users: 'users',
+        lRecords: 'lRecords',
       }),
     },
     methods: {
       ...mapActions({
-        getUsers: 'getUsers'
+        getLRecords: 'getLRecords'
       }),
         handleSizeChange(val) {
           this.query.page = 1;
@@ -102,7 +105,7 @@ export default{
         },
         initList() {
           this.loading = true;
-          this.getUsers(this.query).then((res) => {
+          this.getLRecords(this.query).then((res) => {
             this.total = res.total;
             // this.query.count = res.count;
             this.loading = false;

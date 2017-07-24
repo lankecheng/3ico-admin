@@ -49,7 +49,7 @@ module.exports = function webpackBaseConfig (NODE_ENV = 'development') {
                 }
             }),
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(config.NODE_ENV),
+                'NODE_ENV': JSON.stringify(config.NODE_ENV),
                 'API_ORIGIN': JSON.stringify(config.API_ORIGIN),
                 'ROUTER_MODE': JSON.stringify(config.ROUTER_MODE)
             }),

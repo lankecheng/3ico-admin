@@ -6,7 +6,7 @@
 
 <script type="text/babel">
 export default{
-    title: '管理后台',
+    title: '个人中心',
     data () {
         return {}
     },
