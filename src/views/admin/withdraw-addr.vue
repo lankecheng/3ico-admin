@@ -8,10 +8,6 @@
             :data="withdrawAddrs"
             stripe
             border>
-            <el-table-column
-              prop="id"
-              label="ID">
-              </el-table-column>
               <el-table-column
               label="类型">
               <template scope="scope">

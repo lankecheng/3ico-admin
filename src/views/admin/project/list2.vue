@@ -54,7 +54,9 @@
         <el-table-column
           label="众筹成功">
           <template scope="scope">
+          <span v-if="scope.row.successful !== undefined">
             {{scope.row.successful ? '是' : '否'}}
+          </span>
           </template>
         </el-table-column>
         <el-table-column
@@ -63,9 +65,15 @@
             <el-button-group>
             <el-button v-if="scope.row.status == 0" @click="handlePublish(scope)" size="small">发布</el-button>
             <el-button v-if="scope.row.status == 1" @click="handleStop(scope)" size="small">终止</el-button>
-            <el-button v-if="scope.row.status == 2" @click="handleSuccess(scope)" size="small">众筹成功</el-button>
-            <el-button v-if="scope.row.status == 2" @click="handleFail(scope)" size="small">众筹失败</el-button>
-            <el-button v-if="scope.row.status == 2" @click="handleDelay(scope)" size="small">延期</el-button>
+            <el-button
+            v-if="scope.row.successful !== undefined && scope.row.status == 2"
+            @click="handleSuccess(scope)" size="small">众筹成功</el-button>
+            <el-button
+            v-if="scope.row.successful !== undefined && scope.row.status == 2"
+            @click="handleFail(scope)" size="small">众筹失败</el-button>
+            <el-button
+            v-if="scope.row.successful !== undefined && scope.row.status == 2"
+            @click="handleDelay(scope)" size="small">延期</el-button>
             </el-button-group>
           </template>
         </el-table-column>
@@ -114,6 +122,25 @@
         <div slot="footer">
         <el-button @click="handleSubmit" type="primary">确认</el-button>
         <el-button @click="dialog.show = false">取消</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog
+    size="tiny"
+    title="延期"
+    :visible.sync="delay.show"
+    :modal-append-to-body="false">
+        <el-form ref="form" :model="delay.data" :rules="delay.rules" label-width="80px">
+            <el-form-item label="结束时间" prop="end_time">
+                <el-date-picker
+                  v-model="delay.data.end_time"
+                  type="datetime"
+                  @change="handleDelayTime($event, 'end_time')"
+                  placeholder="选择结束时间"/>
+            </el-form-item>
+        </el-form>
+        <div slot="footer">
+        <el-button @click="handleSubmitDelay" type="primary">确认</el-button>
+        <el-button @click="delay.show = false">取消</el-button>
         </div>
     </el-dialog>
   </div>
@@ -172,6 +199,14 @@ export default{
                     // ],
                 }
             },
+            delay: {
+              show: false,
+              data: {
+                pid: '',
+                end_time: '',
+              },
+              rules: {}
+            }
         };
     },
     computed: {
@@ -221,13 +256,20 @@ export default{
             });
         },
         handleDelay(item) {
-            this.delayProject({pid: item.row.id}).then((res) => {
+          this.delay.data.pid = item.row.id;
+          this.delay.show = true;
+        },
+        handleSubmitDelay() {
+            this.delayProject(this.delay.data).then((res) => {
                 this.$message('操作成功');
                 this.initList();
             });
         },
         handleTime(val, name) {
             this.dialog.data[name] = val;
+        },
+        handleDelayTime(val, name) {
+            this.delay.data[name] = val;
         },
         handleSubmit() {
             this.$refs.form.validate((valid) => {

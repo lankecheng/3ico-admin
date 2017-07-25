@@ -54,7 +54,9 @@
         <el-table-column
           label="众筹成功">
           <template scope="scope">
+            <span v-if="scope.row.successful !== undefined">
             {{scope.row.successful ? '是' : '否'}}
+          </span>
           </template>
         </el-table-column>
         <el-table-column
