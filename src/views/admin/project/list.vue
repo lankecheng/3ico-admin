@@ -29,7 +29,7 @@
           </el-table-column>
           <el-table-column
           prop="target_amount"
-          label="目标金额">
+          label="目标">
           </el-table-column>
           <el-table-column
           label="允许超购">
@@ -99,7 +99,7 @@
                   @change="handleTime($event, 'end_time')"
                   placeholder="选择结束时间"/>
             </el-form-item>
-            <el-form-item label="目标金额" prop="target_amount">
+            <el-form-item label="目标" prop="target_amount">
                 <el-input v-model="dialog.data.target_amount"/>
             </el-form-item>
             <el-form-item label="个人限额" prop="personal_max">

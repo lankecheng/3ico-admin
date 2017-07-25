@@ -48,7 +48,7 @@
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/login-record">登录日志</router-link>
                         </li>
-                        <li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/personal/asset">资产流水</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 3">
