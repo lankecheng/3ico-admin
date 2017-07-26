@@ -37,7 +37,7 @@
             <el-form ref="form" :model="dialog.data" :rules="dialog.rules" label-width="80px">
                 <el-form-item label="币种" prop="currency">
                     <el-select v-model="dialog.data.currency">
-                      <el-option label="ETC" value="0"></el-option>
+                      <el-option label="ETH" value="0"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="地址" prop="addr">

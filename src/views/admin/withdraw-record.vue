@@ -13,7 +13,7 @@
             </el-form-item>
             <el-form-item label="币种">
                 <el-select v-model="query.currency">
-                      <el-option label="ETC" :value="0"></el-option>
+                      <el-option label="ETH" :value="0"></el-option>
                   </el-select>
             </el-form-item>
             <el-form-item label="状态">

@@ -81,7 +81,7 @@
             </el-form-item> -->
             <el-form-item label="币种" prop="currency">
                 <el-select v-model="dialog.data.currency">
-                      <el-option label="ETC" :value="0"></el-option>
+                      <el-option label="ETH" :value="0"></el-option>
                   </el-select>
             </el-form-item>
             <el-form-item label="项目名称" prop="name">

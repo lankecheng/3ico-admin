@@ -5,8 +5,13 @@
                 <el-form-item label="图标" prop="icon">
                     <el-upload
                   class="icon-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :action="API_ORIGIN + '/api/project_admin/upload_icon'"
                   :show-file-list="false"
+                  :headers="{
+                        Authorization: localStorage.getItem('token'),
+                        'Project-Id': $route.query.pid,
+                    }"
+                    :with-credentials="true"
                   :on-success="handleIconSuccess"
                   :before-upload="beforeIconUpload">
                   <img v-if="data.icon" :src="data.icon" class="icon">
@@ -40,6 +45,9 @@ export default{
     },
     data() {
         return {
+            API_ORIGIN: API_ORIGIN,
+            localStorage: localStorage,
+            iconUrl: '',
             data: {
                 pid: '',
                 intro: '',
@@ -52,14 +60,17 @@ export default{
     methods: {
         ...mapActions({
             getProjectIntro: 'getProjectIntro',
-            modifyProjectIntro: 'modifyProjectIntro'
+            modifyProjectIntro: 'modifyProjectIntro',
+            uploadIcon: 'uploadIcon',
         }),
         save() {
             this.modifyProjectIntro(this.data).then((res) => {
                 this.$message('保存成功');
             });
         },
-        handleIconSuccess(res, file) {},
+        handleIconSuccess(res, file) {
+            this.data.icon = URL.createObjectURL(file.raw);
+        },
         beforeIconUpload(file) {},
     },
     created() {

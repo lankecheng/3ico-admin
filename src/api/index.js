@@ -164,4 +164,7 @@ export default {
     postAdminWithdrawSuccess(body) {
         return io.post('/api/bg/withdrawal_success', body);
     },
+    uploadIcon(body) {
+        return io.post('/api/project_admin/upload_icon', body);
+    },
 }
