@@ -170,9 +170,10 @@ export default{
             loading: true,
             status: {
                 0: '未发布',
-                1: '已发布',
-                2: '已结束',
-                3: '终止',
+                1: '即将ICO',
+                2: '正在ICO',
+                3: 'ICO结束',
+                5: '终止',
             },
             dialog: {
                 show: false,

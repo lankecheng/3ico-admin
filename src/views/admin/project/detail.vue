@@ -1,7 +1,7 @@
 <template>
   <div>
         </el-form>
-        <el-form ref="form" :model="data" :rules="rules" label-width="80px">
+        <el-form ref="form" :model="data" :rules="rules" label-width="100px">
                 <el-form-item label="图标" prop="icon">
                     <el-upload
                   class="icon-uploader"
@@ -18,6 +18,21 @@
                   <i v-else class="el-icon-plus icon-uploader-icon"></i>
                 </el-upload>
                 </el-form-item>
+                <el-form-item label="白皮书" prop="wp">
+                    <el-upload
+                  :action="API_ORIGIN + '/api/project_admin/upload_wp'"
+                  :headers="{
+                        Authorization: localStorage.getItem('token'),
+                        'Project-Id': $route.query.pid,
+                    }"
+                    :with-credentials="true"
+                    :on-success="handleWpSuccess"
+                    :show-file-list="false">
+                  <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传pdf/word文件</div>
+                </el-upload>
+                <div style="color: #666;">{{wp.url}}</div>
+                </el-form-item>
                 <el-form-item label="摘要" prop="digest">
                 <el-input v-model="data.digest" :rows="5" type="textarea"/>
                 </el-form-item>
@@ -25,7 +40,7 @@
                     <vue-editor v-model="data.intro"></vue-editor>
                 </el-form-item>
                 <el-form-item>
-                    <el-button style="margin-top: 20px;" type="primary" @click="save">保存</el-button>
+                    <el-button style="margin-top: 20px;" type="primary" @click="save">保存摘要及简介</el-button>
                 </el-form-item>
             </el-form>
   </div>
@@ -48,11 +63,13 @@ export default{
             API_ORIGIN: API_ORIGIN,
             localStorage: localStorage,
             iconUrl: '',
+            wp: {},
             data: {
-                pid: '',
+                id: '',
                 intro: '',
                 icon: '',
                 digest: '',
+                wp: '',
             },
             rules: {}
         }
@@ -64,7 +81,12 @@ export default{
             uploadIcon: 'uploadIcon',
         }),
         save() {
-            this.modifyProjectIntro(this.data).then((res) => {
+            const data = this.data;
+            this.modifyProjectIntro({
+                id: data.id,
+                intro: data.intro,
+                digest: data.digest,
+            }).then((res) => {
                 this.$message('保存成功');
             });
         },
@@ -72,12 +94,26 @@ export default{
             this.data.icon = URL.createObjectURL(file.raw);
         },
         beforeIconUpload(file) {},
+        handleWpSuccess(res, file) {
+            this.wp = {
+              name: res.project.wp,
+              url: res.project.wp,
+            };
+        },
+        beforeWpUpload(file) {},
+        handlePreview(file) {
+            // console.log(file);
+        },
     },
     created() {
         this.getProjectIntro({
             pid: this.$route.query.pid
         }).then((res) => {
             this.data = res.project;
+            this.wp = {
+              name: res.project.wp,
+              url: res.project.wp,
+            };
         });
     }
 };

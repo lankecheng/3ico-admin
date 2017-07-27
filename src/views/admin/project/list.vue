@@ -63,7 +63,8 @@
         label="操作">
           <template scope="scope">
             <el-button-group>
-            <el-button v-if="scope.row.status === 0" @click="handleEdit(scope)" size="small">编辑</el-button>
+            <el-button
+            @click="handleEdit(scope)" size="small">编辑</el-button>
             <el-button @click="handleDetail(scope)" size="small">简介</el-button>
             <!-- <el-button v-if="scope.row.status === 1" @click="handleDel(scope)" size="small">下线</el-button> -->
             </el-button-group>
@@ -75,10 +76,13 @@
     title="项目设置"
     :visible.sync="dialog.show"
     :modal-append-to-body="false">
-        <el-form ref="form" :model="dialog.data" :rules="dialog.rules" label-width="80px">
+        <el-form ref="form" :model="dialog.data" :rules="dialog.rules" label-width="100px">
             <!-- <el-form-item label="项目编码" prop="code">
                 <el-input v-model="dialog.data.code"/>
             </el-form-item> -->
+            <el-form-item label="项目负责人" prop="principal">
+                <el-input v-model="dialog.data.principal"/>
+            </el-form-item>
             <el-form-item label="币种" prop="currency">
                 <el-select v-model="dialog.data.currency">
                       <el-option label="ETH" :value="0"></el-option>
@@ -134,6 +138,7 @@ const DEFAULT_DATA = {
     personal_max: '',
     currency: 0,
     allow_over: false,
+    principal: '',
 };
 
 export default{
@@ -143,9 +148,10 @@ export default{
             loading: true,
             status: {
                 0: '未发布',
-                1: '已发布',
-                2: '已结束',
-                3: '终止',
+                1: '即将ICO',
+                2: '正在ICO',
+                3: 'ICO结束',
+                5: '终止',
             },
             dialog: {
                 show: false,

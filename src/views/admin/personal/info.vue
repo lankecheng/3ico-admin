@@ -29,9 +29,9 @@
           <div class="bd">
               <ul>
                   <li>
-                  <span class="bold">余额：</span><span class="highlight">￥{{user.balance}}</span>
+                  <span class="bold">余额：</span><span class="highlight">{{user.balance}} ETH</span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span class="bold">已投资：</span><span class="highlight">￥{{user.investment}}</span>
+                  <span class="bold">已投资：</span><span class="highlight">{{user.investment}} ETH</span>
                   </li>
               </ul>
           </div>
@@ -54,10 +54,13 @@
       size="tiny">
           <div>
               <el-input v-model="vcodeDialog.value" style="width: 100px; vertical-align: top;"/>
-              <img :src="vcodeDialog.b64" height="36" />
+              <img @click="refreshCaptcha"
+                    title="点击刷新"
+                    style="cursor: pointer;"
+              :src="vcodeDialog.b64" height="36" />
           </div>
           <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="handleSendPinCode">确 定</el-button>
+              <el-button type="primary" @click="handleSendPinCode">发送短信验证码</el-button>
           </span>
       </el-dialog>
   </div>
@@ -110,6 +113,12 @@ export default{
         sendPinCode: 'sendPinCode',
         userCertificate: 'userCertificate',
       }),
+      refreshCaptcha() {
+          this.getCaptcha().then((res) => {
+              this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
+              this.captcha_id = res.data.captcha_id;
+          });
+      },
       onAuth() {
         const data = this.auth.data;
 
@@ -125,10 +134,7 @@ export default{
           });
       },
       handleGetVcode() {
-          this.getCaptcha().then((res) => {
-              this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
-              this.captcha_id = res.data.captcha_id;
-          });
+          this.refreshCaptcha();
           this.vcodeDialog.show = true;
       },
       handleSendPinCode() {

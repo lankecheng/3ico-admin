@@ -9,7 +9,7 @@
                 <div class="hd">欢迎您注册3ICO中心会员！</div>
                 <div class="bd">
                     <div class="left">
-                    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+                    <el-form ref="form" :model="form" :rules="rules" label-width="100px">
                     <el-form-item label="手机" prop="mobile">
                         <el-input @blur="handleCheckMobile" v-model="form.mobile" style="width: 210px;"/>
                     </el-form-item>
@@ -22,9 +22,9 @@
                     <!-- <el-form-item label="手机" prop="mobile">
                         <el-input @blur="handleCheckMobile" v-model="form.mobile" style="width: 210px;"/>
                     </el-form-item> -->
-                    <el-form-item label="验证码" prop="pin_code">
+                    <el-form-item label="短信验证码" prop="pin_code">
                         <el-input v-model="form.pin_code" style="width: 100px;"/>
-                        <el-button @click="handleGetVcode">获取验证码</el-button>
+                        <el-button @click="handleGetVcode">获取图形验证码</el-button>
                     </el-form-item>
                     <el-form-item>
                         <el-checkbox v-model="form.agree">我已认真阅读并同意3ICO的使用协议</el-checkbox>
@@ -97,10 +97,13 @@
     size="tiny">
         <div>
             <el-input v-model="vcodeDialog.value" style="width: 100px; vertical-align: top;"/>
-            <img :src="vcodeDialog.b64" height="36" />
+            <img @click="refreshCaptcha"
+                            title="点击刷新"
+                            style="cursor: pointer;"
+            :src="vcodeDialog.b64" height="36" />
         </div>
         <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="handleSendPinCode">确 定</el-button>
+            <el-button type="primary" @click="handleSendPinCode">确认发送短信验证码</el-button>
         </span>
     </el-dialog>
     </div>
@@ -226,6 +229,12 @@ export default{
             register: 'register',
             sendPinCode: 'sendPinCode',
         }),
+        refreshCaptcha() {
+            this.getCaptcha().then((res) => {
+                this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
+                this.captcha_id = res.data.captcha_id;
+            });
+        },
         onSubmit() {
             const data = this.form;
 
@@ -262,10 +271,7 @@ export default{
             });
         },
         handleGetVcode() {
-            this.getCaptcha().then((res) => {
-                this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
-                this.captcha_id = res.data.captcha_id;
-            });
+            this.refreshCaptcha();
             this.vcodeDialog.show = true;
         },
         handleCheckNickname() {

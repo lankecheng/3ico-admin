@@ -167,4 +167,17 @@ export default {
     uploadIcon(body) {
         return io.post('/api/project_admin/upload_icon', body);
     },
+    uploadIcon(body) {
+        return io.post('/api/project_admin/upload_wp', body);
+    },
+    getUserJournals(query) {
+        return io.get('/api/user/journals', {
+            params: query,
+        });
+    },
+    getBgJournals(query) {
+        return io.get('/api/bg/journals', {
+            params: query,
+        });
+    },
 }

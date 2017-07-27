@@ -30,6 +30,9 @@
                         <li v-if="NODE_ENV === 'development' || user.role === 2">
                             <router-link to="/admin/projects/status">项目状态变更</router-link>
                         </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 2">
+                            <router-link to="/admin/asset">用户资产流水</router-link>
+                        </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/admin">项目管理员</router-link>
                         </li>
@@ -53,6 +56,9 @@
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/personal/info">我的信息</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
+                            <router-link to="/admin/personal/asset">资产流水</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/pay">数字代币充值</router-link>
@@ -123,7 +129,7 @@ import {
     mapActions,
 } from 'vuex';
 
-import {bus} from '../../utils/';
+import {bus, tokenHandle} from '../../utils/';
 
 import top from '../layout/top.vue';
 import headerComp from '../layout/header.vue';
@@ -159,6 +165,7 @@ export default {
         }),
         handleLogout() {
             this.logout().then((res) => {
+                tokenHandle.remove();
                 location.href = location.origin;
                 // this.$router.push({
                 //     path: '/login'
@@ -168,7 +175,9 @@ export default {
     },
     created () {
         this.init = true;
-        this.postAssistVerify();
+        this.postAssistVerify().catch(() => {
+            tokenHandle.remove();
+        });
         this.getUserInfo().then((res) => {
             this.init = true;
         }).catch((res) => {

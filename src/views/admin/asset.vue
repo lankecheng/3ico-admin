@@ -2,137 +2,144 @@
   <div>
     <div class="hd">
         <el-form :inline="true">
-            <el-form-item label="昵称">
-                <el-input v-model="query.nickname"/>
+            <el-form-item label="用户ID">
+                <el-input v-model="query.code"/>
             </el-form-item>
             <el-form-item label="手机">
-                <el-input v-model="query.phone"/>
-            </el-form-item>
-            <el-form-item label="姓名">
-                <el-input v-model="query.name"/>
-            </el-form-item>
-            <el-form-item label="身份证">
-                <el-input v-model="query.id"/>
-            </el-form-item>
-            <el-form-item label="变动类型">
-                <el-select v-model="query.type">
-                    <el-option label="类型1" value="1"></el-option>
-                    <el-option label="类型2" value="2"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="变动项目">
-                <el-input v-model="query.project"/>
-            </el-form-item>
-            <el-form-item label="变动额">
-                <el-input style="width: 60px;" v-model="query.id"/>
-                -
-                <el-input style="width: 60px;" v-model="query.id"/>
+                <el-input v-model="query.mobile"/>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary">搜索</el-button>
+                <el-select v-model="query.currency">
+                      <el-option label="ETH" :value="0"></el-option>
+                  </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="handleSearch" type="primary">搜索</el-button>
             </el-form-item>
         </el-form>
     </div>
     <el-table
-        :data="data"
+    v-loading="loading"
+        :data="journals"
         stripe
         border>
         <el-table-column
-          prop="nickname"
-          label="昵称">
+        prop="ucode"
+          label="用户ID">
         </el-table-column>
         <el-table-column
-          prop="phone"
+        prop="mobile"
           label="手机">
         </el-table-column>
         <el-table-column
-          prop="name"
+        prop="fullname"
           label="姓名">
         </el-table-column>
         <el-table-column
-          prop="id"
-          label="身份证">
-        </el-table-column>
-        <el-table-column
-          width="120"
-          prop="type"
           label="变动类型">
+          <template scope="scope">
+            {{type[scope.row.type]}}
+          </template>
         </el-table-column>
         <el-table-column
           prop="project"
           label="项目">
         </el-table-column>
         <el-table-column
-          prop="bde"
-          label="变动额">
-        </el-table-column>
-        <el-table-column
-          prop="bdq"
+          prop="before"
           label="变动前">
         </el-table-column>
         <el-table-column
-          prop="bdh"
+          prop="change"
+          label="变动额">
+        </el-table-column>
+        <el-table-column
+          prop="after"
           label="变动后">
         </el-table-column>
         <el-table-column
           width="180"
-          prop="created_at"
-          label="变动日期">
+          prop="create_time"
+          label="变动时间">
         </el-table-column>
     </el-table>
     <el-pagination
       class="page"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="1"
+      :current-page="query.page"
       :page-sizes="[10, 20, 30, 50]"
-      :page-size="10"
+      :page-size="query.count"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
   </div>
 </template>
 
 <script type="text/babel">
+import {
+  mapState,
+  mapActions,
+} from 'vuex';
+
 const DEFAULT_QUERY = {
     page: 1,
-    pageSize: 10,
-    nickname: '',
-    phone: '',
-    name: '',
-    id: '',
-    type: '1',
-    project: '',
+    count: 20,
+    mobile: '',
+    code: '',
+    currency: 0,
 };
 
 export default{
     title: '资产流水',
     data () {
         return {
+          total: 0,
+          loading: false,
             query: Object.assign({}, DEFAULT_QUERY, this.$route.query),
+            type: {
+              0: '充值',
+              1: '投资',
+              2: '投资失败',
+              3: '提现',
+              4: '撤销提现',
+            }
         };
     },
     computed: {
-        data() {
-            return [
-                {
-                    nickname: 'nickname1',
-                    phone: '11111111111',
-                    name: '张三',
-                    id: '333333333333333333',
-                    type: '类型',
-                    project: '项目1',
-                    bde: '10.00',
-                    bdq: '0.00',
-                    bdh: '10.00',
-                    created_at: '2017-12-12 12:00',
-                },
-            ];
-        },
+      ...mapState({
+        journals: 'bgJournals',
+      }),
     },
     methods: {
-        handleSizeChange() {},
-        handleCurrentChange() {},
+      ...mapActions({
+        getBgJournals: 'getBgJournals'
+      }),
+        handleSizeChange(val) {
+          this.query.page = 1;
+          this.query.count = val;
+          this.initList();
+        },
+        handleCurrentChange(val) {
+          this.query.page = val;
+          this.initList();
+        },
+        initList() {
+          this.loading = true;
+          this.getBgJournals(this.query).then((res) => {
+            this.total = res.total;
+            // this.query.count = res.count;
+            this.loading = false;
+          }).catch(() => {
+            this.loading = false;
+          });
+        },
+        handleSearch() {
+          this.initList();
+        }
+    },
+    created() {
+      this.initList();
     }
 };
 </script>

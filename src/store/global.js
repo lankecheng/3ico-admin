@@ -26,7 +26,7 @@ export default {
         },
         currencies: {
             0: {
-                text: 'ETC',
+                text: 'ETH',
                 val: 0
             }
         },
@@ -53,6 +53,8 @@ export default {
         users: [],
         userAccounts: [],
         lRecords: [],
+        userJournals: [],
+        bgJournals: [],
     },
     getters: {},
     mutations: {
@@ -94,6 +96,12 @@ export default {
         },
         SET_ADMIN_WITHDRAW_RECORDS(state, records) {
             state.adminWithdrawRecords = records;
+        },
+        SET_USER_JOURNALS(state, journals) {
+            state.userJournals = journals;
+        },
+        SET_BG_JOURNALS(state, journals) {
+            state.bgJournals = journals;
         },
     },
     actions: {
@@ -323,6 +331,18 @@ export default {
         },
         successAdminWithdraw({commit}, body) {
             return api.postAdminWithdrawSuccess(body).then((res) => {
+                return res.data;
+            });
+        },
+        getUserJournals({commit}, query) {
+            return api.getUserJournals(query).then((res) => {
+                commit('SET_USER_JOURNALS', res.data.journals);
+                return res.data;
+            });
+        },
+        getBgJournals({commit}, query) {
+            return api.getBgJournals(query).then((res) => {
+                commit('SET_BG_JOURNALS', res.data.journals);
                 return res.data;
             });
         },

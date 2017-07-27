@@ -42,7 +42,7 @@
         title="新增数字代币提现地址"
         :visible.sync="dialog.show"
         :modal-append-to-body="false">
-            <el-form ref="form" :model="dialog.data" :rules="dialog.rules" label-width="80px">
+            <el-form ref="form" :model="dialog.data" :rules="dialog.rules" label-width="100px">
                 <el-form-item label="数量" prop="amount">
                     <el-input style="width: 100px" v-model.number="dialog.data.amount"/>
                 </el-form-item>
@@ -51,9 +51,9 @@
                       <el-option v-for="addr in withdrawAddrs" :label="addr.addr" :value="addr.id"/>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="验证码" prop="pin_code">
+                <el-form-item label="短信验证码" prop="pin_code">
                     <el-input v-model="dialog.data.pin_code" style="width: 100px;"/>
-                    <el-button @click="handleGetVcode">获取验证码</el-button>
+                    <el-button @click="handleGetVcode">获取图形验证码</el-button>
                 </el-form-item>
             </el-form>
             <div slot="footer">
@@ -67,10 +67,12 @@
         size="tiny">
             <div>
                 <el-input v-model="vcodeDialog.value" style="width: 100px; vertical-align: top;"/>
-                <img :src="vcodeDialog.b64" height="36" />
+                <img @click="refreshCaptcha"
+                            title="点击刷新"
+                :src="vcodeDialog.b64" height="36" />
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleSendPinCode">确 定</el-button>
+                <el-button type="primary" @click="handleSendPinCode">发送短信验证码</el-button>
             </span>
         </el-dialog>
     </div>
@@ -152,11 +154,14 @@ export default {
             });
         },
         handleGetVcode() {
+            this.refreshCaptcha();
+            this.vcodeDialog.show = true;
+        },
+        refreshCaptcha() {
             this.getCaptcha().then((res) => {
                 this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
                 this.captcha_id = res.data.captcha_id;
             });
-            this.vcodeDialog.show = true;
         },
         handleSendPinCode() {
             const captcha = this.vcodeDialog.value;

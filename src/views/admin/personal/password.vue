@@ -11,18 +11,19 @@
             <el-form-item label="确认新密码" prop="check_new_pwd">
                 <el-input v-model="password.check_new_pwd" type="password" style="width: 210px;"/>
             </el-form-item>
-            <el-form-item label="验证码" prop="pin_code">
+            <el-form-item label="短信验证码" prop="pin_code">
                 <el-input v-model="password.pin_code" style="width: 100px;"/>
-                <el-button @click="handleGetVcode">获取验证码</el-button>
+                <el-button @click="handleGetVcode">获取图形验证码</el-button>
             </el-form-item>
             <el-form-item>
                 <el-button @click="onChangePwd" type="success">修改密码</el-button>
             </el-form-item>
         </el-form>
-        <h3>修改交易密码</h3>
+        <h3 class="hd">修改交易密码<span class="tip">初始交易密码 和 初始登录密码一致</span></h3>
         <el-form ref="tradePwd" :model="tradePassword" :rules="tradePwdRules" label-width="100px">
             <el-form-item label="原始密码" prop="old_trading_pwd">
-                <el-input v-model="tradePassword.old_trading_pwd" type="password" style="width: 210px;"/>
+                <el-input v-model="tradePassword.old_trading_pwd"
+                type="password" style="width: 210px;"/>
             </el-form-item>
             <el-form-item label="新密码" prop="new_trading_pwd">
                 <el-input v-model="tradePassword.new_trading_pwd" type="password" style="width: 210px;"/>
@@ -30,9 +31,9 @@
             <el-form-item label="确认新密码" prop="check_new_trading_pwd">
                 <el-input v-model="tradePassword.check_new_trading_pwd" type="password" style="width: 210px;"/>
             </el-form-item>
-            <el-form-item label="验证码" prop="pin_code">
+            <el-form-item label="短信验证码" prop="pin_code">
                 <el-input v-model="tradePassword.pin_code" style="width: 100px;"/>
-                <el-button @click="handleGetVcode">获取验证码</el-button>
+                <el-button @click="handleGetVcode">获取图形验证码</el-button>
             </el-form-item>
             <el-form-item>
                 <el-button @click="onChangeTradePwd" type="success">修改密码</el-button>
@@ -44,10 +45,14 @@
           size="tiny">
               <div>
                   <el-input v-model="vcodeDialog.value" style="width: 100px; vertical-align: top;"/>
-                  <img :src="vcodeDialog.b64" height="36" />
+                  <img
+                   @click="refreshCaptcha"
+                            title="点击刷新"
+                            style="cursor: pointer"
+                            :src="vcodeDialog.b64" height="36" />
               </div>
               <span slot="footer" class="dialog-footer">
-                  <el-button type="primary" @click="handleSendPinCode">确 定</el-button>
+                  <el-button type="primary" @click="handleSendPinCode">发送短信验证码</el-button>
               </span>
         </el-dialog>
     </div>
@@ -95,14 +100,14 @@ export default{
             console.log('test');
             if (!value.match(/^[A-Za-z0-9~!@#$%^&*_-]+$/)) {
                 callback(new Error('密码由英文字母、数字、符号组成!'));
-            } else if (this.tradePassword.check_new_pwd !== '') {
-                this.$refs.tradePwd.validateField('check_new_pwd');
+            } else if (this.tradePassword.check_new_trading_pwd !== '') {
+                this.$refs.tradePwd.validateField('check_new_trading_pwd');
             }
             callback();
         };
 
         const validCheckPass2 = (rule, value, callback) => {
-            if (value !== this.tradePassword.new_pwd) {
+            if (value !== this.tradePassword.new_trading_pwd) {
                 callback(new Error('两次输入密码不一致!'));
             } else {
                 callback();
@@ -148,14 +153,7 @@ export default{
                 ],
             },
             tradePwdRules: {
-                old_trading_pwd: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    {
-                        validator: validPass2,
-                        trigger: 'blur'
-                    },
-                    { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
-                ],
+                old_trading_pwd: [],
                 new_trading_pwd: [
                     { required: true, message: '请输入密码', trigger: 'blur' },
                     {
@@ -185,6 +183,12 @@ export default{
             getCaptcha: 'getCaptcha',
             sendPinCode: 'sendPinCode',
         }),
+        refreshCaptcha() {
+          this.getCaptcha().then((res) => {
+              this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
+                  this.captcha_id = res.data.captcha_id;
+          });
+      },
         onChangePwd() {
             const data = this.password;
             this.$refs.pwd.validate((valid) => {
@@ -217,10 +221,7 @@ export default{
         },
         handleGetVcode() {
             this.vcodeDialog.value = '';
-              this.getCaptcha().then((res) => {
-                  this.vcodeDialog.b64 = 'data:image/png;base64,' + res.data.captcha;
-                  this.captcha_id = res.data.captcha_id;
-              });
+              this.refreshCaptcha();
               this.vcodeDialog.show = true;
         },
         handleSendPinCode() {
@@ -236,3 +237,14 @@ export default{
     }
 };
 </script>
+
+<style lang="scss">
+    .hd{
+        .tip{
+            margin-left: 10px;
+            font-size: 12px;
+            color: #bbb;
+            font-weight: normal;
+        }
+    }
+</style>

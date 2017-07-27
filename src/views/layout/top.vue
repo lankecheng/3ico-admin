@@ -39,7 +39,7 @@ import {
     mapState,
     mapActions,
 } from 'vuex';
-
+import {bus, tokenHandle} from '../../utils/';
     export default {
         computed: {
             ...mapState({
@@ -53,6 +53,7 @@ import {
             }),
             handleLogout() {
                 this.logout().then((res) => {
+                    tokenHandle.remove();
                     location.href = location.origin;
                     // this.$router.push({
                     //     path: '/login'
