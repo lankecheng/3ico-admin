@@ -30,9 +30,6 @@
                         <li v-if="NODE_ENV === 'development' || user.role === 2">
                             <router-link to="/admin/projects/status">项目状态变更</router-link>
                         </li>
-                        <li v-if="NODE_ENV === 'development' || user.role === 2">
-                            <router-link to="/admin/asset">用户资产流水</router-link>
-                        </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/admin">项目管理员</router-link>
                         </li>
@@ -41,6 +38,9 @@
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/user">用户列表</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 1">
+                            <router-link to="/admin/asset">用户资产流水</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/user-account">用户钱包</router-link>
