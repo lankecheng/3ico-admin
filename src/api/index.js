@@ -59,6 +59,9 @@ export default {
     stopProject(body) {
         return io.post('/api/project_admin/terminate', body);
     },
+    endProject(body) {
+        return io.post('/api/project_admin/early_done', body);
+    },
     successProject(body) {
         return io.post('/api/project_admin/success', body);
     },
@@ -179,5 +182,20 @@ export default {
         return io.get('/api/bg/journals', {
             params: query,
         });
+    },
+    postFreezeUser(body) {
+        return io.post('/api/bg/freeze_user', body);
+    },
+    getCoinList(query) {
+        return io.get('/api/project_admin/coin_list', query);
+    },
+    postCoinIssue(body) {
+        return io.post('/api/project_admin/coin_issue', body);
+    },
+    getCoinLogs(query) {
+        return io.get('/api/bg/user_coin_list', query);
+    },
+    getUserCoinLogs(query) {
+        return io.get('/api/user/coin_list', query);
     },
 }

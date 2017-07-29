@@ -7,8 +7,8 @@
                 +13615966354
             </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span>
-            ICO is Initial Crypto-Token Offering 比特币：<span class="green">15836.9178</span>元
-            以太坊：<span class="green">1357.66761</span> 元
+            ICO is Initial Crypto-Token Offering 比特币：<span class="green">{{btc}}</span> BTC
+            以太坊：<span class="green">{{eth}}</span> ETH
             </span>
             <ul class="menus">
                 <li>
@@ -16,10 +16,10 @@
                         <i class="ico-user"></i>
                         登录
                     </router-link>
-                    <span v-else>
+                    <a v-else href="/manage/index.html#/admin">
                         <i class="ico-user"></i>
-                        已登录
-                    </span>
+                        个人中心
+                    </a>
                 </li>
                 <li>
                     <router-link v-if="!user" class="register" to="/register">
@@ -39,8 +39,15 @@ import {
     mapState,
     mapActions,
 } from 'vuex';
+import axios from 'axios';
 import {bus, tokenHandle} from '../../utils/';
     export default {
+        data() {
+            return {
+                btc: 0,
+                eth: 0,
+            }
+        },
         computed: {
             ...mapState({
                 user: state => state.user,
@@ -50,6 +57,7 @@ import {bus, tokenHandle} from '../../utils/';
             ...mapActions({
                 logout: 'logout',
                 postAssistVerify: 'postAssistVerify',
+                getUserInfo: 'getUserInfo',
             }),
             handleLogout() {
                 this.logout().then((res) => {
@@ -59,10 +67,35 @@ import {bus, tokenHandle} from '../../utils/';
                     //     path: '/login'
                     // });
                 });
+            },
+            getData() {
+                axios
+                .get('https://www.chbtc.com/getTradeData?symbol=btc')
+                .then((res) => {
+                    const data = res.data.datas;
+                    this.btc = data[data.length - 1].CNY;
+                }).catch((err) => {
+                });
+                axios
+                .get('https://www.chbtc.com/getTradeData?symbol=eth')
+                .then((res) => {
+                    const data = res.data.datas;
+                    this.eth = data[data.length - 1].CNY;
+                }).catch((err) => {
+                });
+                setTimeout(() => {
+                    this.getData();
+                }, 1000 * 10);
             }
         },
         created() {
-            // console.log(this.user);
+            // this.getData();
+            if (tokenHandle.get()) {
+                this.postAssistVerify().catch(() => {
+                    tokenHandle.remove();
+                });
+                this.getUserInfo();
+            }
         }
     }
 </script>

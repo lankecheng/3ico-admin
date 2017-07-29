@@ -30,6 +30,9 @@
                         <li v-if="NODE_ENV === 'development' || user.role === 2">
                             <router-link to="/admin/projects/status">项目状态变更</router-link>
                         </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 2">
+                            <router-link to="/admin/coin-list">代币发放</router-link>
+                        </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
                             <router-link to="/admin/admin">项目管理员</router-link>
                         </li>
@@ -49,10 +52,10 @@
                             <router-link to="/admin/withdraw-record">提现</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
-                            <router-link to="/admin/login-record">登录日志</router-link>
+                            <router-link to="/admin/coin-log">用户代币发放记录</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 1">
-                            <router-link to="/admin/personal/asset">资产流水</router-link>
+                            <router-link to="/admin/login-record">登录日志</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/personal/info">我的信息</router-link>
@@ -62,6 +65,9 @@
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/pay">数字代币充值</router-link>
+                        </li>
+                        <li v-if="NODE_ENV === 'development' || user.role === 3">
+                            <router-link to="/admin/user-coin-log">代币发放记录</router-link>
                         </li>
                         <li v-if="NODE_ENV === 'development' || user.role === 3">
                             <router-link to="/admin/invest">数字代币投资</router-link>
@@ -175,9 +181,9 @@ export default {
     },
     created () {
         this.init = true;
-        this.postAssistVerify().catch(() => {
-            tokenHandle.remove();
-        });
+        // this.postAssistVerify().catch(() => {
+        //     tokenHandle.remove();
+        // });
         this.getUserInfo().then((res) => {
             this.init = true;
         }).catch((res) => {

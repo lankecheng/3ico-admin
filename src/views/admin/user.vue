@@ -27,7 +27,6 @@
           label="手机">
         </el-table-column>
           <el-table-column
-          prop="name"
           label="是否认证">
           <template scope="scope">
             {{scope.row.auth ? '是' : '否'}}
@@ -42,9 +41,25 @@
           label="身份证">
         </el-table-column>
         <el-table-column
+          label="状态">
+          <template scope="scope">
+            {{status[scope.row.status]}}
+          </template>
+        </el-table-column>
+        <el-table-column
           width="180"
           prop="create_time"
           label="注册时间">
+        </el-table-column>
+        <el-table-column
+          label="操作">
+          <template scope="scope">
+              <el-button-group>
+              <el-button v-if="scope.row.status == 0"
+              @click="handleFreeze(scope.row, 1)" size="small">冻结</el-button>
+              <el-button v-else @click="handleFreeze(scope.row, 0)" size="small">恢复</el-button>
+              </el-button-group>
+          </template>
         </el-table-column>
     </el-table>
     <el-pagination
@@ -80,6 +95,10 @@ export default{
           total: 0,
           loading: false,
             query: Object.assign({}, DEFAULT_QUERY, this.$route.query),
+            status: {
+              0: '正常',
+              1: '被冻结',
+            }
         };
     },
     computed: {
@@ -89,8 +108,18 @@ export default{
     },
     methods: {
       ...mapActions({
-        getUsers: 'getUsers'
+        getUsers: 'getUsers',
+        freezeUser: 'freezeUser',
       }),
+      handleFreeze(user, status) {
+        this.freezeUser({
+          uid: user.uid,
+          status: status
+        }).then(() => {
+          this.$message('操作成功');
+          this.initList();
+        });
+      },
         handleSizeChange(val) {
           this.query.page = 1;
           this.query.count = val;

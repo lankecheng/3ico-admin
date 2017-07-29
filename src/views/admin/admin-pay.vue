@@ -3,7 +3,7 @@
         <el-form ref="form" :model="data" :rules="rules" label-width="100px">
                     <el-form-item label="币种" prop="currency">
                         <el-select v-model="data.currency">
-                          <el-option label="ETH" :value="0"></el-option>
+                          <el-option v-for="c in currencies" :label="c.text" :value="c.val"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="手机号码" prop="mobile">
@@ -22,6 +22,7 @@
 <script>
 import {
     mapActions,
+    mapState,
 } from 'vuex';
     export default {
         title: '万能充值',
@@ -34,6 +35,11 @@ import {
                 },
                 rules: {}
             }
+        },
+        computed: {
+            ...mapState({
+                currencies: 'currencies',
+            })
         },
         methods: {
             ...mapActions({

@@ -10,7 +10,7 @@
             </el-form-item>
             <el-form-item>
                 <el-select v-model="query.currency">
-                      <el-option label="ETH" :value="0"></el-option>
+                      <el-option v-for="c in currencies" :label="c.text" :value="c.val"></el-option>
                   </el-select>
             </el-form-item>
             <el-form-item>
@@ -109,6 +109,7 @@ export default{
     computed: {
       ...mapState({
         journals: 'bgJournals',
+        currencies: 'currencies',
       }),
     },
     methods: {

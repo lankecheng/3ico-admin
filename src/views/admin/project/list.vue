@@ -85,7 +85,7 @@
             </el-form-item>
             <el-form-item label="币种" prop="currency">
                 <el-select v-model="dialog.data.currency">
-                      <el-option label="ETH" :value="0"></el-option>
+                      <el-option v-for="c in currencies" :label="c.text" :value="c.val"></el-option>
                   </el-select>
             </el-form-item>
             <el-form-item label="项目名称" prop="name">
@@ -151,7 +151,7 @@ export default{
                 1: '即将ICO',
                 2: '正在ICO',
                 3: 'ICO结束',
-                5: '终止',
+                4: '终止',
             },
             dialog: {
                 show: false,

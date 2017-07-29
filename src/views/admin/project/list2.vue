@@ -64,15 +64,16 @@
           <template scope="scope">
             <el-button-group>
             <el-button v-if="scope.row.status == 0" @click="handlePublish(scope)" size="small">发布</el-button>
-            <el-button v-if="scope.row.status == 1" @click="handleStop(scope)" size="small">终止</el-button>
+            <el-button v-if="[1,2].indexOf(scope.row.status) !== -1" @click="handleEnd(scope)" size="small">提前结束</el-button>
+            <el-button v-if="scope.row.status == 2" @click="handleStop(scope)" size="small">终止</el-button>
             <el-button
-            v-if="scope.row.successful !== undefined && scope.row.status == 2"
+            v-if="scope.row.successful == undefined && scope.row.status == 3"
             @click="handleSuccess(scope)" size="small">众筹成功</el-button>
             <el-button
-            v-if="scope.row.successful !== undefined && scope.row.status == 2"
+            v-if="scope.row.successful == undefined && scope.row.status == 3"
             @click="handleFail(scope)" size="small">众筹失败</el-button>
             <el-button
-            v-if="scope.row.successful !== undefined && scope.row.status == 2"
+            v-if="scope.row.successful == undefined && [1,2,3].indexOf(scope.row.status) !== -1"
             @click="handleDelay(scope)" size="small">延期</el-button>
             </el-button-group>
           </template>
@@ -89,7 +90,7 @@
             </el-form-item> -->
             <el-form-item label="币种" prop="currency">
                 <el-select v-model="dialog.data.currency">
-                      <el-option label="ETH" :value="0"></el-option>
+                      <el-option v-for="c in currencies" :label="c.text" :value="c.val"></el-option>
                   </el-select>
             </el-form-item>
             <el-form-item label="项目名称" prop="name">
@@ -173,7 +174,7 @@ export default{
                 1: '即将ICO',
                 2: '正在ICO',
                 3: 'ICO结束',
-                5: '终止',
+                4: '终止',
             },
             dialog: {
                 show: false,
@@ -227,34 +228,63 @@ export default{
             successProject: 'successProject',
             failProject: 'failProject',
             delayProject: 'delayProject',
+            endProject: 'endProject',
         }),
         handleDialog() {
             if (this.$refs.form) this.$refs.form.resetFields();
             this.dialog.show = true;
         },
         handlePublish(item) {
+          this.$confirm('确认发布?', {
+              type: 'warning'
+          }).then(() => {
             this.publishProject({pid: item.row.id}).then((res) => {
                 this.$message('发布成功');
                 this.initList();
             });
+          });
+        },
+        handleEnd(item) {
+          this.$confirm('确认结束?', {
+              type: 'warning'
+          }).then(() => {
+            this.endProject({pid: item.row.id}).then((res) => {
+                this.$message('结束成功');
+                this.initList();
+            });
+          });
         },
         handleStop(item) {
+          this.$confirm('确认终止?', {
+              type: 'warning'
+          }).then(() => {
             this.stopProject({pid: item.row.id}).then((res) => {
                 this.$message('终止成功');
                 this.initList();
             });
+          });
         },
         handleSuccess(item) {
+          this.$confirm('确认成功?', {
+              type: 'warning'
+          }).then(() => {
             this.successProject({pid: item.row.id}).then((res) => {
                 this.$message('操作成功');
                 this.initList();
             });
+          });
+
         },
         handleFail(item) {
+          this.$confirm('确认失败?', {
+              type: 'warning'
+          }).then(() => {
             this.failProject({pid: item.row.id}).then((res) => {
                 this.$message('操作成功');
                 this.initList();
             });
+          });
+
         },
         handleDelay(item) {
           this.delay.data.pid = item.row.id;

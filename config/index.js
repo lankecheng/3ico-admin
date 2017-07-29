@@ -10,10 +10,11 @@ module.exports = function config (NODE_ENV = 'development') {
             'vuex',
             'axios',
             // 'es6-promise',
-            // 'moment',
+            'moment',
             // 'lodash',
             // 'bluebird',
-            // 'vee-validate',
+            'vee-validate',
+            'element-ui',
         ],
         ROUTER_MODE: 'hash',
     }, require(path.join(__dirname, NODE_ENV)));

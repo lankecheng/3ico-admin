@@ -8,7 +8,10 @@
             <el-form-item label="手机">
                 <el-input v-model="query.mobile"/>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="项目名称">
+                <el-input v-model="query.pname"/>
+            </el-form-item>
+            <el-form-item label="币种">
                 <el-select v-model="query.currency">
                       <el-option v-for="c in currencies" :label="c.text" :value="c.val"></el-option>
                   </el-select>
@@ -20,7 +23,7 @@
     </div>
     <el-table
     v-loading="loading"
-        :data="userAccounts"
+        :data="coinLogs"
         stripe
         border>
         <el-table-column
@@ -31,23 +34,35 @@
           prop="mobile"
           label="手机">
         </el-table-column>
+        <el-table-column
+          prop="fullname"
+          label="姓名">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="项目">
+        </el-table-column>
           <el-table-column
           label="币种">
           <template scope="scope">
             {{currencies[scope.row.currency].text}}
           </template>
         </el-table-column>
-          <el-table-column
-          prop="address"
-          label="充值地址">
+        <el-table-column
+          prop="invested_amount"
+          label="投入数量">
         </el-table-column>
         <el-table-column
-          prop="balance"
-          label="余额">
+          prop="coin_name"
+          label="代币名称">
         </el-table-column>
         <el-table-column
-          prop="freeze"
-          label="冻结">
+          prop="coin_amount"
+          label="发放数量">
+        </el-table-column>
+        <el-table-column
+          prop="create_time"
+          label="发放时间">
         </el-table-column>
     </el-table>
     <el-pagination
@@ -75,26 +90,33 @@ const DEFAULT_QUERY = {
     mobile: '',
     code: '',
     currency: 0,
+    pname: '',
 };
 
 export default{
-    title: '用户钱包',
+    title: '代币发放记录',
     data () {
         return {
           total: 0,
           loading: false,
-            query: Object.assign({}, DEFAULT_QUERY, this.$route.query),
+          status: {
+            0: '待处理',
+            1: '审核通过',
+            2: '转出成功',
+            3: '撤销',
+          },
+          query: Object.assign({}, DEFAULT_QUERY, this.$route.query),
         };
     },
     computed: {
       ...mapState({
-        userAccounts: 'userAccounts',
+        coinLogs: 'coinLogs',
         currencies: 'currencies',
       }),
     },
     methods: {
       ...mapActions({
-        getUserAccounts: 'getUserAccounts'
+        getCoinLogs: 'getCoinLogs',
       }),
         handleSizeChange(val) {
           this.query.page = 1;
@@ -107,7 +129,7 @@ export default{
         },
         initList() {
           this.loading = true;
-          this.getUserAccounts(this.query).then((res) => {
+          this.getCoinLogs(this.query).then((res) => {
             this.total = res.total;
             // this.query.count = res.count;
             this.loading = false;

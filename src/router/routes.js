@@ -5,7 +5,7 @@ const routes = [
         component: (resolve) => {
             require.ensure(['../views/index.vue'], () => {
                 resolve(require('../views/index.vue'));
-            }, 'app');
+            });
         },
         children: [
             {
@@ -76,7 +76,31 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/console'], () => {
                         resolve(require('../views/admin/console'));
-                    }, 'app');
+                    }, 'admin');
+                },
+            },
+            {
+                path: 'coin-list',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/coin-list'], () => {
+                        resolve(require('../views/admin/coin-list'));
+                    }, 'admin');
+                },
+            },
+            {
+                path: 'coin-log',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/coin-log'], () => {
+                        resolve(require('../views/admin/coin-log'));
+                    }, 'admin');
+                },
+            },
+            {
+                path: 'user-coin-log',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/user-coin-log'], () => {
+                        resolve(require('../views/admin/user-coin-log'));
+                    }, 'admin');
                 },
             },
             {
@@ -84,7 +108,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/admin'], () => {
                         resolve(require('../views/admin/admin'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -92,7 +116,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/admin-pay'], () => {
                         resolve(require('../views/admin/admin-pay'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -100,7 +124,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/user'], () => {
                         resolve(require('../views/admin/user'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -108,7 +132,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/user-account'], () => {
                         resolve(require('../views/admin/user-account'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -116,7 +140,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/withdraw-record'], () => {
                         resolve(require('../views/admin/withdraw-record'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -124,7 +148,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/login-record'], () => {
                         resolve(require('../views/admin/login-record'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -132,7 +156,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/asset'], () => {
                         resolve(require('../views/admin/asset'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -140,7 +164,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/pay'], () => {
                         resolve(require('../views/admin/pay'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -148,7 +172,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/invest'], () => {
                         resolve(require('../views/admin/invest'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -156,7 +180,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/withdraw'], () => {
                         resolve(require('../views/admin/withdraw'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -164,7 +188,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/withdraw-addr'], () => {
                         resolve(require('../views/admin/withdraw-addr'));
-                    }, 'app');
+                    }, 'admin');
                 },
             },
             {
@@ -172,7 +196,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/personal'], () => {
                         resolve(require('../views/admin/personal'));
-                    }, 'app');
+                    }, 'admin');
                 },
                 children: [
                     {
@@ -180,7 +204,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/personal/info'], () => {
                                 resolve(require('../views/admin/personal/info'));
-                            }, 'app');
+                            }, 'admin');
                         },
                     },
                     {
@@ -188,7 +212,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/personal/asset'], () => {
                                 resolve(require('../views/admin/personal/asset'));
-                            }, 'app');
+                            }, 'admin');
                         },
                     },
                     {
@@ -196,7 +220,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/personal/password'], () => {
                                 resolve(require('../views/admin/personal/password'));
-                            }, 'app');
+                            }, 'admin');
                         },
                     },
                 ]
@@ -206,7 +230,7 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/project'], () => {
                         resolve(require('../views/admin/project'));
-                    }, 'app');
+                    }, 'admin');
                 },
                 children: [
                     {
@@ -214,7 +238,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/project/list'], () => {
                                 resolve(require('../views/admin/project/list'));
-                            }, 'app');
+                            }, 'admin');
                         },
                     },
                     {
@@ -222,7 +246,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/project/list2'], () => {
                                 resolve(require('../views/admin/project/list2'));
-                            }, 'app');
+                            }, 'admin');
                         },
                     },
                     {
@@ -230,7 +254,7 @@ const routes = [
                         component: (resolve) => {
                             require.ensure(['../views/admin/project/detail'], () => {
                                 resolve(require('../views/admin/project/detail'));
-                            }, 'app');
+                            }, 'admin');
                         },
                     },
                 ]
@@ -243,7 +267,7 @@ const routes = [
         component: (resolve) => {
             require.ensure(['../views/404.vue'], () => {
                 resolve(require('../views/404.vue'));
-            }, 'app');
+            }, '404');
         }
     },
 ];

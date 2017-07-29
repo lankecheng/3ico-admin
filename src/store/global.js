@@ -28,7 +28,11 @@ export default {
             0: {
                 text: 'ETH',
                 val: 0
-            }
+            },
+            1: {
+                text: 'BTC',
+                val: 1
+            },
         },
         withdrawAddrs: [],
         topUpRecords: [],
@@ -55,6 +59,9 @@ export default {
         lRecords: [],
         userJournals: [],
         bgJournals: [],
+        coins: [],
+        coinLogs: [],
+        userCoinLogs: [],
     },
     getters: {},
     mutations: {
@@ -102,6 +109,15 @@ export default {
         },
         SET_BG_JOURNALS(state, journals) {
             state.bgJournals = journals;
+        },
+        SET_COIN_LIST(state, coins){
+            state.coins = coins;
+        },
+        SET_COIN_LOGS(state, logs){
+            state.coinLogs = logs;
+        },
+        SET_USER_COIN_LOGS(state, logs){
+            state.userCoinLogs = logs;
         },
     },
     actions: {
@@ -181,6 +197,11 @@ export default {
         },
         stopProject({commit}, body = {}) {
             return api.stopProject(body).then((res) => {
+                return res.data;
+            });
+        },
+        endProject({commit}, body = {}) {
+            return api.endProject(body).then((res) => {
                 return res.data;
             });
         },
@@ -343,6 +364,34 @@ export default {
         getBgJournals({commit}, query) {
             return api.getBgJournals(query).then((res) => {
                 commit('SET_BG_JOURNALS', res.data.journals);
+                return res.data;
+            });
+        },
+        freezeUser({commit}, body) {
+            return api.postFreezeUser(body).then((res) => {
+                return res.data;
+            });
+        },
+        getCoinList({commit}, query) {
+            return api.getCoinList(query).then((res) => {
+                commit('SET_COIN_LIST', res.data.coins);
+                return res.data;
+            });
+        },
+        getCoinLogs({commit}, query) {
+            return api.getCoinLogs(query).then((res) => {
+                commit('SET_COIN_LOGS', res.data.coins);
+                return res.data;
+            });
+        },
+        getUserCoinLogs({commit}, query) {
+            return api.getUserCoinLogs(query).then((res) => {
+                commit('SET_USER_COIN_LOGS', res.data.coins);
+                return res.data;
+            });
+        },
+        postCoinIssue({commit}, body) {
+            return api.postCoinIssue(body).then((res) => {
                 return res.data;
             });
         },
