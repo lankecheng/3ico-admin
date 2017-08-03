@@ -59,7 +59,7 @@
           </el-table-column>
           <el-table-column
           prop="fee"
-          label="手续费">
+          label="手续费(%)">
           </el-table-column>
           <el-table-column
           prop="final_amount"
