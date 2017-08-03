@@ -56,6 +56,15 @@
         <el-table-column
           prop="amount"
           label="转出数量">
+          </el-table-column>
+          <el-table-column
+          prop="fee"
+          label="手续费">
+          </el-table-column>
+          <el-table-column
+          prop="final_amount"
+          label="最终转出数量">
+          </el-table-column>
         </el-table-column>
         <el-table-column
           prop="commit_time"
