@@ -86,6 +86,12 @@ export default {
     postAdmin(body) {
         return io.post('/api/bg/create_project_admin', body);
     },
+    putAdmin(body) {
+        return io.post('/api/bg/modify_project_admin', body);
+    },
+    delAdmin(body) {
+        return io.post('/api/bg/del_project_admin', body);
+    },
     postPinCode(body) {
         return io.post('/api/assist/send_pin_code', body);
     },
@@ -105,9 +111,7 @@ export default {
         return io.post('/api/user/withdrawal/addr', body);
     },
     delWithdrawAddr(body) {
-        return io.delete('/api/user/withdrawal/addr', {
-            data: body
-        });
+        return io.post('/api/user/withdrawal/del_addr', body);
     },
     getTopUpAddr() {
         return io.get('/api/user/top_up/addr');
@@ -186,6 +190,9 @@ export default {
     postFreezeUser(body) {
         return io.post('/api/bg/freeze_user', body);
     },
+    postVipUser(body) {
+        return io.post('/api/bg/vip_user', body);
+    },
     getCoinList(query) {
         return io.get('/api/project_admin/coin_list', query);
     },
@@ -198,4 +205,28 @@ export default {
     getUserCoinLogs(query) {
         return io.get('/api/user/coin_list', query);
     },
+    getBanners() {
+        return io.get('/api/bg/home_pic_list');
+    },
+    addBanner(body) {
+        return io.post('/api/bg/upload_home_pic', body);
+    },
+    delBanner(body) {
+        return io.post('/api/bg/del_home_pic', body);
+    },
+    getAnncs() {
+        return io.get('/api/bg/annc_list');
+    },
+    addAnnc(body) {
+        return io.post('/api/bg/create_annc', body);
+    },
+    modifyAnnc(body) {
+        return io.post('/api/bg/modify_annc', body);
+    },
+    delAnnc(body) {
+        return io.post('/api/bg/del_annc', body);
+    },
+    resetPwd(body) {
+        return io.post('/api/auth/reset_pwd', body);
+    }
 }

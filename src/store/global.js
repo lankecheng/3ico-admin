@@ -62,6 +62,8 @@ export default {
         coins: [],
         coinLogs: [],
         userCoinLogs: [],
+        banners: [],
+        anncs: [],
     },
     getters: {},
     mutations: {
@@ -118,6 +120,12 @@ export default {
         },
         SET_USER_COIN_LOGS(state, logs){
             state.userCoinLogs = logs;
+        },
+        SET_BANNERS(state, banners){
+            state.banners = banners;
+        },
+        SET_ANNCS(state, anncs){
+            state.anncs = anncs;
         },
     },
     actions: {
@@ -238,6 +246,16 @@ export default {
         },
         createAdmin({commit}, body) {
             return api.postAdmin(body).then((res) => {
+                return res.data;
+            });
+        },
+        delAdmin({commit}, body) {
+            return api.delAdmin(body).then((res) => {
+                return res.data;
+            });
+        },
+        modifyAdmin({commit}, body) {
+            return api.putAdmin(body).then((res) => {
                 return res.data;
             });
         },
@@ -372,6 +390,11 @@ export default {
                 return res.data;
             });
         },
+        vipUser({commit}, body) {
+            return api.postVipUser(body).then((res) => {
+                return res.data;
+            });
+        },
         getCoinList({commit}, query) {
             return api.getCoinList(query).then((res) => {
                 commit('SET_COIN_LIST', res.data.coins);
@@ -392,6 +415,48 @@ export default {
         },
         postCoinIssue({commit}, body) {
             return api.postCoinIssue(body).then((res) => {
+                return res.data;
+            });
+        },
+        getBanners({commit},) {
+            return api.getBanners().then((res) => {
+                commit('SET_BANNERS', res.data.pics);
+                return res.data;
+            });
+        },
+        addBanner({commit}, body) {
+            return api.addBanner(body).then((res) => {
+                return res.data;
+            });
+        },
+        delBanner({commit}, body) {
+            return api.delBanner(body).then((res) => {
+                return res.data;
+            });
+        },
+        getAnncs({commit},) {
+            return api.getAnncs().then((res) => {
+                commit('SET_ANNCS', res.data.anncs);
+                return res.data;
+            });
+        },
+        addAnnc({commit}, body) {
+            return api.addAnnc(body).then((res) => {
+                return res.data;
+            });
+        },
+        modifyAnnc({commit}, body) {
+            return api.modifyAnnc(body).then((res) => {
+                return res.data;
+            });
+        },
+        delAnnc({commit}, body) {
+            return api.delAnnc(body).then((res) => {
+                return res.data;
+            });
+        },
+        resetPwd({commit}, body) {
+            return api.resetPwd(body).then((res) => {
                 return res.data;
             });
         },

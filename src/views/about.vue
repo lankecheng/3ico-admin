@@ -11,17 +11,12 @@
                 <div class="left">
                     <div class="title">公司简介</div>
                     <div class="content">
-                        在李易峰看来，2015年他感受到的最大变化便是，
-                        面对移动互联网企业从过去几年满怀激情地、充满
-                        希望地想向互联网转型，到现在转型之后开始碰壁，
-                        开始害怕向移动互联网转型。近年来，企业互联网
-                        化的进程迅速加快。一开始，很多企业都是下定决
-                        心要拥抱互联网的变化，要开始实施转型。但经过
-                        一番尝试之后，很多企业的转型都没有成功，甚至
-                        碰了很多壁，还遭受了不少损失。这让企业开始害
-                        怕向互联网转型，原先的热情再迅速消退，甚至对
-                        互联网转型产生了恐慌情绪。他们开始退缩到自己
-                        熟悉的领域，而后想尽一切办法守住自己的核心业务……
+                        3ico于2017年08月上线，是一个为ICO项目提供一站式服务的平台。
+                        广大投资者可以在3ico平台查阅和筛选ICO项目进行投资，项目方可
+                        以在3ico平台发布项目信息并开展ICO。在此过程中，我们专注于为
+                        投资者提供更加全面、真实和客观的项目资讯及评估报告，以帮助投
+                        资者做出正确而明智的选择；同时为项目方提供项目诊断咨询服务，
+                        以协助项目取得成功。
                     </div>
                 </div>
                 <div class="right">
@@ -39,20 +34,20 @@
                 <div class="sub">公司优势</div>
                 <div class="bd">
                     <div class="item">
+                        <i class="ico-credit"></i><br/><br/>
+                        <span>专业</span>
+                    </div>
+                    <div class="item">
                         <i class="ico-safe"></i><br/><br/>
                         <span>安全</span>
                     </div>
                     <div class="item">
-                        <i class="ico-credit"></i><br/><br/>
-                        <span>诚信</span>
+                        <i class="ico-transparent"></i><br/><br/>
+                        <span>透明</span>
                     </div>
                     <div class="item">
                         <i class="ico-fair"></i><br/><br/>
                         <span>公平</span>
-                    </div>
-                    <div class="item">
-                        <i class="ico-transparent"></i><br/><br/>
-                        <span>透明</span>
                     </div>
                 </div>
             </div>
@@ -64,22 +59,22 @@
                     <li>
                         <div class="ico group"></div>
                         <div class="content">
-                            <div class="title">专业团队</div>
-                            <div class="desc">我们由一支熟悉数字货币、区块链、互联网金融运作方式的团队开发并运营。</div>
+                            <div class="title">全面的ICO资讯</div>
+                            <div class="desc">团队成员搜集全球各类ICO项目资讯的步伐从未停歇，对区块链行业的发展始终保持着高度的关注，以帮助投资者合理制定投资计划。</div>
                         </div>
                     </li>
                     <li>
                         <div class="ico cloud"></div>
                         <div class="content">
-                            <div class="title">投资资源</div>
-                            <div class="desc">我们拥有一批来自于数字货币、区块链、金融、科技、基金领域的投资资源。</div>
+                            <div class="title">专业的ICO服务</div>
+                            <div class="desc">团队专业人员从投资者的角度对项目进行分析，综合考察项目团队成员背景、技术优势以及可能的应用场景等方面，从而为投资者及项目方提供客观真实的评估报告。</div>
                         </div>
                     </li>
                     <li>
                         <div class="ico idea"></div>
                         <div class="content">
-                            <div class="title">用户体验</div>
-                            <div class="desc">我们提供客服在线及技术支持，确保产品每一环节使用流畅。</div>
+                            <div class="title">优秀的合作伙伴</div>
+                            <div class="desc">与国内外区块链行业的多家初创企业达成战略合作，以实现在最大程度上帮助ICO项目方了解国内外市场，制定合理的ICO方案，收集投资者反馈，促使ICO项目取得成功。</div>
                         </div>
                     </li>
                 </ul>
@@ -92,31 +87,31 @@
                 <div class="bd">
                     <div class="item">
                         <img class="avatar" src="../assets/img/demo/ceo1.jpg">
-                        <div class="name">张立成 <span class="title">- CEO</span></div>
+                        <!-- <div class="name">张立成 <span class="title">- CEO</span></div>
                         <div class="desc">
                             互联网金融创业者， 拥有6 年以上的金融产品设计与运营，以及团队管理经验，熟悉互联网金融的各种运作模式，进入数字货币行业三年多，对区块链有比较深的理解，较强的市场敏锐感，坚持产品设计必须与市场需求相结合
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
                         <img class="avatar" src="../assets/img/demo/ceo2.jpg">
-                        <div class="name">张立成 <span class="title">- CEO</span></div>
+                        <!-- <div class="name">张立成 <span class="title">- CEO</span></div>
                         <div class="desc">
                             互联网金融创业者， 拥有6 年以上的金融产品设计与运营，以及团队管理经验，熟悉互联网金融的各种运作模式，进入数字货币行业三年多，对区块链有比较深的理解，较强的市场敏锐感，坚持产品设计必须与市场需求相结合
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
                         <img class="avatar" src="../assets/img/demo/ceo3.jpg">
-                        <div class="name">张立成 <span class="title">- CEO</span></div>
+                        <!-- <div class="name">张立成 <span class="title">- CEO</span></div>
                         <div class="desc">
                             互联网金融创业者， 拥有6 年以上的金融产品设计与运营，以及团队管理经验，熟悉互联网金融的各种运作模式，进入数字货币行业三年多，对区块链有比较深的理解，较强的市场敏锐感，坚持产品设计必须与市场需求相结合
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item">
                         <img class="avatar" src="../assets/img/demo/ceo4.jpg">
-                        <div class="name">张立成 <span class="title">- CEO</span></div>
+                        <!-- <div class="name">张立成 <span class="title">- CEO</span></div>
                         <div class="desc">
                             互联网金融创业者， 拥有6 年以上的金融产品设计与运营，以及团队管理经验，熟悉互联网金融的各种运作模式，进入数字货币行业三年多，对区块链有比较深的理解，较强的市场敏锐感，坚持产品设计必须与市场需求相结合
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

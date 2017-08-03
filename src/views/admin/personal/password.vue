@@ -13,7 +13,7 @@
             </el-form-item>
             <el-form-item label="短信验证码" prop="pin_code">
                 <el-input v-model="password.pin_code" style="width: 100px;"/>
-                <el-button @click="handleGetVcode">获取图形验证码</el-button>
+                <el-button @click="handleGetVcode(2)">获取图形验证码</el-button>
             </el-form-item>
             <el-form-item>
                 <el-button @click="onChangePwd" type="success">修改密码</el-button>
@@ -33,7 +33,7 @@
             </el-form-item>
             <el-form-item label="短信验证码" prop="pin_code">
                 <el-input v-model="tradePassword.pin_code" style="width: 100px;"/>
-                <el-button @click="handleGetVcode">获取图形验证码</el-button>
+                <el-button @click="handleGetVcode(3)">获取图形验证码</el-button>
             </el-form-item>
             <el-form-item>
                 <el-button @click="onChangeTradePwd" type="success">修改密码</el-button>
@@ -115,6 +115,7 @@ export default{
         };
 
         return {
+            type: '',
             captcha_id: '',
             vcodeDialog: {
                 show: false,
@@ -219,7 +220,8 @@ export default{
                 }
             });
         },
-        handleGetVcode() {
+        handleGetVcode(type) {
+            this.type = type;
             this.vcodeDialog.value = '';
               this.refreshCaptcha();
               this.vcodeDialog.show = true;
@@ -230,6 +232,7 @@ export default{
             this.sendPinCode({
               captcha_id: this.captcha_id,
               captcha: captcha,
+              type: this.type,
             }).then((res) => {
               this.vcodeDialog.show = false;
             });

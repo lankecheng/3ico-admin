@@ -2,13 +2,16 @@
     <div class="Frame top">
         <div class="View container">
             <span>www.3ico.com</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>
+            <!-- <span>
                 <i class="ico-phone"></i>
                 +13615966354
-            </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
             <span>
-            ICO is Initial Crypto-Token Offering 比特币：<span class="green">{{btc}}</span> BTC
-            以太坊：<span class="green">{{eth}}</span> ETH
+            官方QQ群：①661222492&nbsp;&nbsp;②661733862&nbsp;&nbsp;
+            客服QQ：①489941545&nbsp;&nbsp;②1690176159
+            <!-- ICO is Initial Crypto-Token Offering
+            比特币：<span class="green">{{btc}}</span> BTC
+            以太坊：<span class="green">{{eth}}</span> ETH -->
             </span>
             <ul class="menus">
                 <li>

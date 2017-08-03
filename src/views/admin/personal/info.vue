@@ -28,10 +28,10 @@
           <div class="hd">资产</div>
           <div class="bd">
               <ul>
-                  <li>
-                  <span class="bold">余额：</span><span class="highlight">{{user.balance}} ETH</span>
+                  <li v-for="(item, key) in user.money">
+                  <span class="bold">余额：</span><span class="highlight">{{item.balance}} {{currencies[key].text}}</span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span class="bold">已投资：</span><span class="highlight">{{user.investment}} ETH</span>
+                  <span class="bold">已投资：</span><span class="highlight">{{item.investment}} {{currencies[key].text}}</span>
                   </li>
               </ul>
           </div>
@@ -77,6 +77,7 @@ export default{
     computed: {
         ...mapState({
             user: state => state.user,
+            currencies: 'currencies',
         }),
     },
     data() {
@@ -143,6 +144,7 @@ export default{
         this.sendPinCode({
           captcha_id: this.captcha_id,
           captcha: captcha,
+          type: 4,
         }).then((res) => {
           this.vcodeDialog.show = false;
         });

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="hd">
-            我的充值地址：{{topUpAddr.addr}}
+            ETH充值地址：{{topUpAddr.addr}}
         </div>
         <el-table
             v-loading="loading"
@@ -21,6 +21,10 @@
               <el-table-column
               prop="address"
               label="地址">
+              </el-table-column>
+              <el-table-column
+              prop="hash"
+              label="Hash">
               </el-table-column>
               <el-table-column
               prop="create_time"

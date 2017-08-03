@@ -100,6 +100,7 @@ export default{
                     nick: '',
                     pwd: '',
                     checkPwd: '',
+                    id: '',
                 },
                 rules: {
                     nick: [
@@ -139,6 +140,8 @@ export default{
         ...mapActions({
             getAdmins: 'getAdmins',
             createAdmin: 'createAdmin',
+            modifyAdmin: 'modifyAdmin',
+            delAdmin: 'delAdmin',
         }),
         handleDialog() {
             if (this.$refs.form) this.$refs.form.resetFields();
@@ -153,23 +156,39 @@ export default{
             this.dialog.isEdit = true;
             this.handleDialog();
             this.dialog.data.nick = item.row.nick;
+            this.dialog.data.id = item.row.id;
         },
         handleDel(item) {
-            console.log(item);
             this.$confirm('确认删除?', {
                 type: 'warning'
             }).then(() => {
+                this.delAdmin({
+                    id: item.row.id
+                }).then(() => {
+                    this.$message('删除成功');
+                    this.initList();
+                });
             });
         },
         handleSubmit() {
             const data = this.dialog.data;
             this.$refs.form.validate((valid) => {
                 if (valid) {
-                    this.createAdmin({
-                        nick: data.nick,
-                        pwd: data.pwd,
-                    }).then((res) => {
-                        this.$message('新增成功');
+                    const isEdit = this.dialog.isEdit;
+                    let pos;
+                    if (isEdit) {
+                        pos = this.modifyAdmin({
+                            id: data.id,
+                            pwd: data.pwd,
+                        });
+                    } else {
+                        pos = this.createAdmin({
+                            nick: data.nick,
+                            pwd: data.pwd,
+                        });
+                    }
+                    pos.then((res) => {
+                        this.$message('操作成功');
                         this.dialog.show = false;
                         this.initList();
                     }).catch(() => {

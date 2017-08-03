@@ -1,5 +1,17 @@
 <template>
   <div>
+    <div class="hd">
+        <el-form :inline="true">
+            <el-form-item>
+                <el-select v-model="query.currency">
+                      <el-option v-for="c in currencies" :label="c.text" :value="c.val"></el-option>
+                  </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="handleSearch" type="primary">搜索</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
     <el-table
     v-loading="loading"
         :data="journals"
@@ -55,6 +67,7 @@ import {
 const DEFAULT_QUERY = {
     page: 1,
     count: 20,
+    currency: 0,
 };
 
 export default{
@@ -76,6 +89,7 @@ export default{
     computed: {
       ...mapState({
         journals: 'userJournals',
+        currencies: 'currencies',
       }),
     },
     methods: {

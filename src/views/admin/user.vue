@@ -9,6 +9,13 @@
                 <el-input v-model="query.mobile"/>
             </el-form-item>
             <el-form-item>
+                <el-select v-model="query.vip">
+                  <el-option label="所有用户" value=""></el-option>
+                  <el-option label="VIP" :value="1"></el-option>
+                  <el-option label="普通用户" :value="0"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
                 <el-button @click="handleSearch" type="primary">搜索</el-button>
             </el-form-item>
         </el-form>
@@ -41,6 +48,12 @@
           label="身份证">
         </el-table-column>
         <el-table-column
+          label="是否VIP">
+          <template scope="scope">
+            {{scope.row.vip ? '是' : '否'}}
+          </template>
+        </el-table-column>
+        <el-table-column
           label="状态">
           <template scope="scope">
             {{status[scope.row.status]}}
@@ -58,6 +71,9 @@
               <el-button v-if="scope.row.status == 0"
               @click="handleFreeze(scope.row, 1)" size="small">冻结</el-button>
               <el-button v-else @click="handleFreeze(scope.row, 0)" size="small">恢复</el-button>
+              <el-button v-if="!scope.row.vip"
+              @click="handleVip(scope.row, 1)" size="small">VIP</el-button>
+              <el-button v-else @click="handleVip(scope.row, 0)" size="small">取消VIP</el-button>
               </el-button-group>
           </template>
         </el-table-column>
@@ -86,7 +102,9 @@ const DEFAULT_QUERY = {
     count: 20,
     mobile: '',
     code: '',
+    vip: '',
 };
+
 
 export default{
     title: '用户列表',
@@ -110,11 +128,21 @@ export default{
       ...mapActions({
         getUsers: 'getUsers',
         freezeUser: 'freezeUser',
+        vipUser: 'vipUser',
       }),
       handleFreeze(user, status) {
         this.freezeUser({
           uid: user.uid,
           status: status
+        }).then(() => {
+          this.$message('操作成功');
+          this.initList();
+        });
+      },
+      handleVip(user, vip) {
+        this.vipUser({
+          uid: user.uid,
+          vip: vip
         }).then(() => {
           this.$message('操作成功');
           this.initList();

@@ -32,6 +32,10 @@
           label="发放比例">
           </el-table-column>
           <el-table-column
+          prop="coin_vip_fee"
+          label="VIP手续费">
+          </el-table-column>
+          <el-table-column
           prop="coin_fee"
           label="手续费">
           </el-table-column>
@@ -64,6 +68,9 @@
             <el-form-item label="发放比例" prop="coin_ratio">
                 <el-input v-model="dialog.data.coin_ratio"/>
             </el-form-item>
+            <el-form-item label="VIP手续费%" prop="coin_vip_fee">
+                <el-input v-model="dialog.data.coin_vip_fee"/>
+            </el-form-item>
             <el-form-item label="手续费%" prop="coin_fee">
                 <el-input v-model="dialog.data.coin_fee"/>
             </el-form-item>
@@ -94,6 +101,7 @@ export default{
                 coin_name: '',
                 coin_ratio: '',
                 coin_fee: '',
+                coin_vip_fee: '',
               },
               rules: {}
             }
@@ -124,6 +132,7 @@ export default{
           this.dialog.data.coin_name = '';
           this.dialog.data.coin_ratio = '';
           this.dialog.data.coin_fee = '';
+          this.dialog.data.coin_vip_fee = '';
           this.dialog.show = true;
         },
         handleReFafa(item) {
@@ -131,9 +140,11 @@ export default{
           this.dialog.data.coin_name = item.coin_name;
           this.dialog.data.coin_ratio = item.coin_ratio;
           this.dialog.data.coin_fee = item.coin_fee;
+          this.dialog.data.coin_vip_fee = item.coin_vip_fee;
           this.dialog.show = true;
         },
         handleSubmit() {
+          this.dialog.show = false;
           this.postCoinIssue(this.dialog.data).then((res) => {
             this.$message('操作成功');
             this.initList();

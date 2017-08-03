@@ -80,7 +80,7 @@ import {
 } from 'vuex';
 
 const DEFAULT_DATA = {
-    currency: '0',
+    currency: 0,
     descr: '',
     addr: '',
     pin_code: '',
@@ -96,18 +96,18 @@ export default {
               show: false,
               data: Object.assign({}, DEFAULT_DATA),
               rules: {
-                currency: [
-                    { required: true, message: '请选择币种', trigger: 'blur' },
-                ],
-                addr: [
-                    { required: true, message: '请输入地址', trigger: 'blur' },
-                ],
-                descr: [
-                    { required: true, message: '请输入地址说明', trigger: 'blur' },
-                ],
-                pin_code: [
-                    { required: true, message: '请输入验证码', trigger: 'blur' },
-                ],
+                // currency: [
+                //     { required: true, message: '请选择币种', trigger: 'blur' },
+                // ],
+                // addr: [
+                //     { required: true, message: '请输入地址', trigger: 'blur' },
+                // ],
+                // descr: [
+                //     { required: true, message: '请输入地址说明', trigger: 'blur' },
+                // ],
+                // pin_code: [
+                //     { required: true, message: '请输入验证码', trigger: 'blur' },
+                // ],
               },
             },
             vcodeDialog: {
@@ -158,6 +158,7 @@ export default {
             this.sendPinCode({
               captcha_id: this.captcha_id,
               captcha: captcha,
+              type: 5
             }).then((res) => {
               this.vcodeDialog.show = false;
             });

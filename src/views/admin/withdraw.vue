@@ -48,7 +48,7 @@
                 </el-form-item>
                 <el-form-item label="地址" prop="addr_id">
                     <el-select v-model="dialog.data.addr_id">
-                      <el-option v-for="addr in withdrawAddrs" :label="addr.addr" :value="addr.id"/>
+                      <el-option v-for="addr in withdrawAddrs" :label="addr.descr" :value="addr.id"/>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="短信验证码" prop="pin_code">
@@ -169,6 +169,7 @@ export default {
             this.sendPinCode({
               captcha_id: this.captcha_id,
               captcha: captcha,
+              type: 6,
             }).then((res) => {
               this.vcodeDialog.show = false;
             });

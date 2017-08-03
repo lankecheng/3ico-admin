@@ -1,3 +1,4 @@
+import store from '../store';
 
 const routes = [
     {
@@ -54,6 +55,14 @@ const routes = [
                 }
             },
             {
+                path: 'reset-pwd',
+                component: (resolve) => {
+                    require.ensure(['../views/reset-pwd.vue'], () => {
+                        resolve(require('../views/reset-pwd.vue'));
+                    }, 'app');
+                }
+            },
+            {
                 path: 'projects',
                 component: (resolve) => {
                     require.ensure(['../views/projects.vue'], () => {
@@ -76,6 +85,22 @@ const routes = [
                 component: (resolve) => {
                     require.ensure(['../views/admin/console'], () => {
                         resolve(require('../views/admin/console'));
+                    }, 'admin');
+                },
+            },
+            {
+                path: 'banner',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/banner'], () => {
+                        resolve(require('../views/admin/banner'));
+                    }, 'admin');
+                },
+            },
+            {
+                path: 'annc',
+                component: (resolve) => {
+                    require.ensure(['../views/admin/annc'], () => {
+                        resolve(require('../views/admin/annc'));
                     }, 'admin');
                 },
             },

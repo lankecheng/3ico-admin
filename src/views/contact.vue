@@ -6,9 +6,9 @@
     <mTop title="联系我们"/>
     <div class="View container">
         <div class="info">
-            <div class="hd">3ico科技文化发展有限公司</div>
+            <div class="hd">3ICO</div>
             <div class="bd">
-                <div class="item">
+                <!-- <div class="item">
                     <span class="label">业务咨询</span>
                     <div class="content">0991-2300336</div>
                 </div>
@@ -31,16 +31,24 @@
                 <div class="item">
                     <span class="label">联系邮箱</span>
                     <div class="content">zhtx@163.com</div>
+                </div> -->
+                <div class="item">
+                    <span class="label">官方QQ群</span>
+                    <div class="content">①661222492 ②661733862</div>
+                </div>
+                <div class="item">
+                    <span class="label">客服QQ</span>
+                    <div class="content">①489941545 ②1690176159</div>
                 </div>
                 <div class="item">
                     <span class="label">联系地址</span>
-                    <div class="content"></div>
+                    <div class="content">深圳市南山区大学城创客小镇</div>
                 </div>
             </div>
         </div>
         <div class="map">
             <div class="tip">看电子地图，更快的找到我们！</div>
-            <img src="../assets/img/demo/map.png">
+            <img src="../assets/img/demo/map.jpeg">
         </div>
     </div>
     <bottom/>

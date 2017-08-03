@@ -23,10 +23,13 @@
                             style="vertical-align: top; cursor: pointer;"
                             :src="captcha" height="36" />
                         </el-form-item>
-                        <!-- <el-form-item style="margin-bottom: 0;">
-                            <input type="checkbox" name=""/>记住我
-                            <a style="float: right" href="javascript:;">忘记密码</a>
-                        </el-form-item> -->
+                        <el-form-item style="margin-bottom: 0;">
+                            <!-- <input type="checkbox" name=""/>记住我 -->
+                            <a style="float: right" href="javascript:;"
+                            @click="$router.push({
+                                path: 'reset-pwd'
+                            })">忘记密码</a>
+                        </el-form-item>
                         <el-form-item>
                             <el-button style="width: 100%; background-color: #005bac; border-color: #005bac;"
                             @click="onSubmit" type="primary">登录</el-button>
@@ -141,6 +144,8 @@ export default{
                                 path: '/admin'
                             });
                         }
+                    }).catch(() => {
+                        this.refreshCaptcha();
                     });
                 }
             });

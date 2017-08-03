@@ -1,6 +1,5 @@
 <template>
   <div>
-        </el-form>
         <el-form ref="form" :model="data" :rules="rules" label-width="100px">
                 <el-form-item label="图标" prop="icon">
                     <el-upload

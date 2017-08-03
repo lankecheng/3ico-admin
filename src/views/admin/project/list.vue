@@ -111,7 +111,7 @@
             <el-form-item label="个人限额" prop="personal_max">
                 <el-input v-model="dialog.data.personal_max"/>
             </el-form-item>
-            <el-form-item label="超额认购" prop="allow_over">
+            <el-form-item label="允许超额众筹" prop="allow_over">
               <el-checkbox v-model="dialog.data.allow_over"/>
             </el-form-item>
         </el-form>
@@ -208,12 +208,6 @@ export default{
             this.dialog.isEdit = true;
             this.dialog.data = Object.assign({}, row);
             this.handleDialog();
-        },
-        handleDel(item) {
-            this.$confirm('确认下线?', {
-                type: 'warning'
-            }).then(() => {
-            });
         },
         handlePublish(item) {
             this.publishProject({pid: item.row.id}).then((res) => {

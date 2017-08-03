@@ -41,14 +41,14 @@
                             <router-link to="/login">登录</router-link>
                         </div>
                         <div class="contact">
-                            <div class="phone">
+                            <!-- <div class="phone">
                                 <i class="ico-phone"></i>
                                 400-0000-000
-                            </div>
+                            </div> -->
                             <div class="weibo">
                                 <div class="logo"></div>
                                 <div class="content">
-                                    <div class="name">3ICO科技文化发展有限公司</div>
+                                    <div class="name">3ICO</div>
                                     <div class="follow"></div>
                                 </div>
                             </div>
@@ -266,6 +266,7 @@ export default{
               captcha_id: this.captcha_id,
               captcha: captcha,
               mobile: this.form.mobile,
+              type: 1,
             }).then((res) => {
               this.vcodeDialog.show = false;
             });
@@ -351,7 +352,7 @@ export default{
                     position: relative;
                     min-height: 56px;
                     padding: 15px 0 0 95px;
-                    border-top: 1px solid #d8d8d8;
+                    // border-top: 1px solid #d8d8d8;
                     .logo{
                         position: absolute;
                         top: 15px;
