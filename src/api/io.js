@@ -42,7 +42,7 @@ const handleError = function (err) {
     const data = response.data || {};
     const errCode = data.error_code;
     const errMsg = data.error_msg;
-console.log(errMsg);
+
     switch (errCode) {
     case 20001:
     // case 20002:

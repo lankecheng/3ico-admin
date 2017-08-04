@@ -36,7 +36,7 @@
                 <el-input v-model="data.digest" :rows="5" type="textarea"/>
                 </el-form-item>
                 <el-form-item label="简介" prop="intro">
-                    <vue-editor v-model="data.intro"></vue-editor>
+                    <editor :content="data.intro" @change="handleChange"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button style="margin-top: 20px;" type="primary" @click="save">保存摘要及简介</el-button>
@@ -46,16 +46,22 @@
 </template>
 
 <script type="text/babel">
-import { VueEditor } from 'vue2-editor';
+import Vue from 'vue';
+import VueHtml5Editor from 'vue-html5-editor'
 import {
     mapState,
     mapActions,
 } from 'vuex';
 
+const editor = new VueHtml5Editor({
+    language: 'zh-cn'
+});
+console.log(editor.components['dashboard-font'].methods.setFontName);
+
 export default{
     title: '项目简介编辑',
     components: {
-        VueEditor,
+        editor,
     },
     data() {
         return {
@@ -70,7 +76,7 @@ export default{
                 digest: '',
                 wp: '',
             },
-            rules: {}
+            rules: {},
         }
     },
     methods: {
@@ -78,6 +84,7 @@ export default{
             getProjectIntro: 'getProjectIntro',
             modifyProjectIntro: 'modifyProjectIntro',
             uploadIcon: 'uploadIcon',
+            postIntroPic: 'postIntroPic',
         }),
         save() {
             const data = this.data;
@@ -92,6 +99,9 @@ export default{
         handleIconSuccess(res, file) {
             this.data.icon = URL.createObjectURL(file.raw);
         },
+        handleChange(res) {
+            this.data.intro = res;
+        },
         beforeIconUpload(file) {},
         handleWpSuccess(res, file) {
             this.wp = {
@@ -104,7 +114,7 @@ export default{
             // console.log(file);
         },
     },
-    created() {
+    mounted() {
         this.getProjectIntro({
             pid: this.$route.query.pid
         }).then((res) => {
@@ -114,7 +124,7 @@ export default{
               url: res.project.wp,
             };
         });
-    }
+    },
 };
 </script>
 
