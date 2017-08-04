@@ -54,9 +54,22 @@ import {
 } from 'vuex';
 
 const editor = new VueHtml5Editor({
-    language: 'zh-cn'
+    language: 'zh-cn',
+    image: {
+        upload: {
+            url: API_ORIGIN + '/api/project_admin/upload_intro_pic',
+            headers: {
+                Authorization: localStorage.getItem('token'),
+                'Project-Id': location.hash.split('=')[1],
+            },
+        },
+        uploadHandler(responseText) {
+            const res = JSON.parse(responseText);
+            return API_ORIGIN + res.pic;
+        },
+    }
 });
-console.log(editor.components['dashboard-font'].methods.setFontName);
+
 
 export default{
     title: '项目简介编辑',
