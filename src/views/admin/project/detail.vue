@@ -103,7 +103,7 @@ export default{
             const data = this.data;
             this.modifyProjectIntro({
                 id: data.id,
-                intro: data.intro,
+                intro: data.intro.replace(new RegExp(API_ORIGIN, 'g'), ''),
                 digest: data.digest,
             }).then((res) => {
                 this.$message('保存成功');
@@ -131,6 +131,8 @@ export default{
         this.getProjectIntro({
             pid: this.$route.query.pid
         }).then((res) => {
+            res.project.intro = res.project.intro
+            .replace(new RegExp('<img src="', 'g'), ('<img src="' + API_ORIGIN));
             this.data = res.project;
             this.wp = {
               name: res.project.wp,
