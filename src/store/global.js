@@ -460,5 +460,10 @@ export default {
                 return res.data;
             });
         },
+        postIntroPic({commit}, body) {
+            return api.postIntroPic(body).then((res) => {
+                return res.data;
+            });
+        },
     },
 };

@@ -228,5 +228,8 @@ export default {
     },
     resetPwd(body) {
         return io.post('/api/auth/reset_pwd', body);
-    }
+    },
+    postIntroPic(body) {
+        return io.post('/api/project_admin/upload_intro_pic', body);
+    },
 }

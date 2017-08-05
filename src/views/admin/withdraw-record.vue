@@ -1,5 +1,17 @@
 <template>
   <div>
+    <div style="margin-bottom: 20px; font-size: 14px; line-height: 1.5;">
+      转出代币说明</br>
+1. 请仔细核对自己的提币地址.</br>
+2. 提币手续费为千分之三.(暂行)</br>
+3. 工作时间内(9:00-12:00/14:00-18:00)提币,财务会在2小时内审核后进行转出.</br>
+4. 工作时间外提币,财务会在工作时间内开始按照提币顺序进行审核后转出.</br>
+5. 以上转出时间为理论时间,如遇特殊情况.以通知/公告为准.</br>
+6. 法定节假日提币请阅读本平台放假公告.</br>
+7. 平台转出后具体到账时间以区块浏览器确认数为准.如遇有区块拥堵,可能会迟迟无法到账.</br>
+    </div>
+
+    </el-alert>
     <div class="hd">
         <el-form :inline="true">
             <el-form-item label="用户ID">
@@ -56,10 +68,6 @@
         <el-table-column
           prop="amount"
           label="转出数量">
-          </el-table-column>
-          <el-table-column
-          prop="fee"
-          label="手续费(%)">
           </el-table-column>
           <el-table-column
           prop="final_amount"

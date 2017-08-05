@@ -22,10 +22,6 @@
               prop="address"
               label="地址">
               </el-table-column>
-              <el-table-column
-          prop="fee"
-          label="手续费(%)">
-          </el-table-column>
           <el-table-column
           prop="final_amount"
           label="最终转出数量">
