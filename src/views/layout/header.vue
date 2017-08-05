@@ -1,7 +1,9 @@
 <template>
     <div class="header">
         <div class="View container">
-            <h1 class="logo"><img src="../../assets/img/logo.png"></h1>
+            <h1 class="logo">
+                <a href="/"><img src="../../assets/img/logo.png"></a>
+            </h1>
             <ul class="menus">
                 <li>
                     <a href="/">首页</a>
