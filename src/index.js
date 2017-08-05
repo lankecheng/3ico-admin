@@ -12,8 +12,6 @@ import components from './components';
 import mixins from './mixins';
 // import validator from './plugins/validator';
 
-import 'vueditor/dist/style/vueditor.min.css';
-
 Vue.use(ElementUI);
 
 Object.values(mixins).forEach((mixin) => {
