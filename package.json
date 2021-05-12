@@ -56,7 +56,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "normalize.css": "^7.0.0",
-    "swiper": "^3.4.2",
+    "swiper": "^6.5.1",
     "vee-validate": "^2.0.0-rc.3",
     "vue": "^2.3.2",
     "vue-html5-editor": "^1.1.1",
